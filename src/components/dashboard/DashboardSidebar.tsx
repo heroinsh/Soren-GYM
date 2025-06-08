@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, User, CalendarDays, RefreshCw, LogOut, Settings, ShoppingCart, ListChecks, HelpCircle } from 'lucide-react';
+import { Home, User, CalendarDays, RefreshCw, LogOut, Settings, ShoppingCart, ListChecks, HelpCircle, X as XIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/common/Logo';
 import { cn } from '@/lib/utils';
@@ -41,7 +41,7 @@ export function DashboardSidebar({ isOpen, setIsOpen }: DashboardSidebarProps) {
     router.push('/auth/login');
   };
 
-  const closeSidebar = () => {
+  const closeSidebarOnMobileClick = () => {
     if(isMobile) setIsOpen(false);
   }
 
@@ -50,21 +50,30 @@ export function DashboardSidebar({ isOpen, setIsOpen }: DashboardSidebarProps) {
       {isOpen && isMobile && (
         <div
           className="fixed inset-0 z-30 bg-black/50 md:hidden"
-          onClick={closeSidebar}
+          onClick={() => setIsOpen(false)}
           aria-hidden="true"
         />
       )}
       <aside
         className={cn(
           "fixed inset-y-0 right-0 z-40 flex h-full w-64 flex-col border-s bg-card transition-transform duration-300 ease-in-out font-persian",
-          isOpen ? "translate-x-0" : "translate-x-full",
-          "md:translate-x-0" 
+          isOpen ? "translate-x-0" : "translate-x-full"
+          // Removed "md:translate-x-0" to allow sidebar to slide out on desktop as well
         )}
         dir="rtl"
         aria-label="منوی پیشخوان"
       >
-        <div className="flex h-16 md:h-20 items-center justify-center px-6 border-b"> 
+        <div className="flex h-16 md:h-20 items-center justify-between px-6 border-b">
           <Logo />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsOpen(false)}
+            className="md:hidden text-card-foreground hover:bg-muted"
+            aria-label="بستن سایدبار"
+          >
+            <XIcon className="h-6 w-6" />
+          </Button>
         </div>
         <nav className="flex-1 space-y-2 p-4 overflow-y-auto" aria-label="ناوبری اصلی پیشخوان">
           {navItems.map((item) => (
@@ -73,14 +82,14 @@ export function DashboardSidebar({ isOpen, setIsOpen }: DashboardSidebarProps) {
               asChild
               variant={pathname === item.href ? 'default' : 'ghost'}
               className={cn(
-                "w-full justify-start text-base", 
+                "w-full justify-start text-base",
                 pathname === item.href ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'hover:bg-muted text-card-foreground'
               )}
-              onClick={closeSidebar}
+              onClick={closeSidebarOnMobileClick}
               aria-label={item.ariaLabel}
             >
               <Link href={item.href}>
-                <item.icon className="ms-3 h-5 w-5" /> 
+                <item.icon className="ms-3 h-5 w-5" />
                 {item.label}
               </Link>
             </Button>
