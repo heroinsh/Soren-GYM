@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+# Sitemap: [بعداً آدرس سایت مپ خود را اینجا قرار دهید، مثال: https://www.sorenathletics.com/sitemap.xml]
