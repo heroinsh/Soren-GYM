@@ -77,7 +77,7 @@ export default function RenewalsPage() {
         coach: classItem.coach,
         schedule: classItem.schedule, 
         image: 'https://placehold.co/600x400.png', 
-        imageHint: 'تمدید کلاس',
+        imageHint: 'تمدید کلاس', // data-ai-hint remains English
         description: `تمدید برای ${classItem.name}`,
         tags: ['تمدید'],
         price: classItem.monthlyFee, 
@@ -157,7 +157,7 @@ export default function RenewalsPage() {
                         <span>{progressValue.toFixed(0)}٪ تکمیل شده</span>
                         <span>{daysRemaining > 0 ? `${daysRemaining} روز باقیمانده` : 'منقضی شده'}</span>
                     </div>
-                    <Progress value={progressValue} aria-label={`${progressValue.toFixed(0)}٪ از دوره اشتراک گذشته است`} className="h-2 [&>div]:bg-primary" />
+                    <Progress value={progressValue} aria-label={`میزان پیشرفت اشتراک: ${progressValue.toFixed(0)} درصد`} className="h-2 [&>div]:bg-primary" />
                 </div>
                 <p className={`text-sm font-semibold px-2 py-1 rounded-full inline-block border ${getStatusColor(classItem.status)}`}>
                   وضعیت: {getPersianStatus(classItem.status)}
@@ -190,3 +190,6 @@ export default function RenewalsPage() {
     </div>
   );
 }
+
+
+    

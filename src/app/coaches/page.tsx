@@ -16,10 +16,10 @@ interface Coach {
   bio: string; 
   image: string;
   imageHint: string;
-  gender: 'Male' | 'Female' | 'N/A'; 
-  persianDisciplines?: string[];
-  persianExperience?: string;
-  persianBio?: string;
+  gender: 'Male' | 'Female' | 'N/A'; // برای منطق داخلی می‌تواند انگلیسی بماند اگر لازم باشد
+  persianDisciplines?: string[]; // این‌ها باید استفاده شوند
+  persianExperience?: string;  // این‌ها باید استفاده شوند
+  persianBio?: string;         // این‌ها باید استفاده شوند
   persianGender?: 'آقا' | 'خانم' | 'نامشخص';
   social?: {
     instagram?: string;
@@ -29,22 +29,22 @@ interface Coach {
 }
 
 const coachesData: Coach[] = [
-  { id: 'c_bahramzadeh', name: 'بهرام‌زاده', disciplines: ['Volleyball (Ladies)'], experience: '10+ Years', bio: 'Passionate about empowering female athletes in volleyball, focusing on skill, teamwork, and competitive strategy.', image: 'https://placehold.co/400x400.png', imageHint: 'female coach volleyball', gender: 'Female', social: { instagram: '#', linkedin: '#' }, persianDisciplines: ['والیبال (بانوان)'], persianExperience: '+۱۰ سال', persianBio: 'مشتاق توانمندسازی ورزشکاران زن در والیبال، با تمرکز بر مهارت، کار تیمی و استراتژی رقابتی.' , persianGender: 'خانم'},
-  { id: 'c_chamanfar', name: 'چمن‌فر', disciplines: ['Volleyball (Ladies)'], experience: '8+ Years', bio: 'Specializes in advanced volleyball techniques and competitive strategy for women. Dedicated to player development.', image: 'https://placehold.co/400x400.png', imageHint: 'woman coach sport', gender: 'Female', social: { instagram: '#'}, persianDisciplines: ['والیبال (بانوان)'], persianExperience: '+۸ سال', persianBio: 'متخصص در تکنیک‌های پیشرفته والیبال و استراتژی رقابتی برای بانوان. متعهد به توسعه بازیکنان.', persianGender: 'خانم' },
-  { id: 'c_alavi', name: 'علوی', disciplines: ['Basketball (Ladies)'], experience: '7+ Years', bio: 'Co-leading the ladies\' basketball program, Coach Alavi focuses on developing young talent and fostering a love for the game.', image: 'https://placehold.co/400x400.png', imageHint: 'basketball female coach', gender: 'Female', social: {}, persianDisciplines: ['بسکتبال (بانوان)'], persianExperience: '+۷ سال', persianBio: 'همراه با مربی آقاجری، برنامه بسکتبال بانوان را هدایت می‌کند و بر توسعه استعدادهای جوان و پرورش عشق به بازی تمرکز دارد.', persianGender: 'خانم' },
-  { id: 'c_aghajeri', name: 'آقاجری', disciplines: ['Basketball (Ladies)'], experience: '9+ Years', bio: 'With Coach Alavi, Aghajeri leads ladies\' basketball, emphasizing fundamental skills and game intelligence.', image: 'https://placehold.co/400x400.png', imageHint: 'coach profile woman', gender: 'Female', social: { linkedin: '#'}, persianDisciplines: ['بسکتبال (بانوان)'], persianExperience: '+۹ سال', persianBio: 'به همراه مربی علوی، بسکتبال بانوان را هدایت می‌کند، با تاکید بر مهارت‌های پایه‌ای و هوش بازی.', persianGender: 'خانم' },
-  { id: 'c_setayeshrahman', name: 'رحمان ستایش', disciplines: ['Gymnastics (Ladies)'], experience: '12+ Years', bio: 'Former national gymnast, now inspiring the next generation of female gymnasts with her expertise and passion.', image: 'https://placehold.co/400x400.png', imageHint: 'gymnastics female trainer', gender: 'Female', social: { instagram: '#', email: 'setayesh.r@sorenathletics.com'}, persianDisciplines: ['ژیمناستیک (بانوان)'], persianExperience: '+۱۲ سال', persianBio: 'ژیمناست سابق تیم ملی، اکنون با تخصص و اشتیاق خود الهام‌بخش نسل بعدی ژیمناست‌های زن است.', persianGender: 'خانم' },
-  { id: 'c_gholami', name: 'غلامی', disciplines: ['Zumba (Ladies)'], experience: '6+ Years', bio: 'An energetic and certified Zumba instructor, Coach Gholami makes fitness fun and accessible for all ladies.', image: 'https://placehold.co/400x400.png', imageHint: 'female zumba instructor', gender: 'Female', social: { instagram: '#' }, persianDisciplines: ['زومبا (بانوان)'], persianExperience: '+۶ سال', persianBio: 'مربی زومبای پرانرژی و دارای گواهینامه، تناسب اندام را برای همه بانوان سرگرم‌کننده و در دسترس می‌کند.', persianGender: 'خانم' },
-  { id: 'c_abbasi', name: 'عباسی', disciplines: ['Aerobics', 'Functional Fitness (Ladies)'], experience: '7+ Years', bio: 'Coach Abbasi is a versatile fitness expert, leading engaging Aerobics and effective Functional Fitness sessions for ladies.', image: 'https://placehold.co/400x400.png', imageHint: 'female fitness coach', gender: 'Female', social: { email: 'abbasi.f@sorenathletics.com'}, persianDisciplines: ['ایروبیک', 'فانکشنال فیتنس (بانوان)'], persianExperience: '+۷ سال', persianBio: 'کارشناس تناسب اندام چندمنظوره، جلسات جذاب ایروبیک و فانکشنال فیتنس موثر برای بانوان را هدایت می‌کند.', persianGender: 'خانم' },
-  { id: 'c_mahdavi', name: 'مهدوی', disciplines: ['Fitness Package (Ladies)'], experience: '5+ Years', bio: 'Dedicated to helping ladies achieve their fitness goals through personalized and comprehensive fitness packages.', image: 'https://placehold.co/400x400.png', imageHint: 'female personal trainer', gender: 'Female', social: {}, persianDisciplines: ['پکیج فیتنس (بانوان)'], persianExperience: '+۵ سال', persianBio: 'متعهد به کمک به بانوان برای دستیابی به اهداف تناسب اندامشان از طریق پکیج‌های فیتنس شخصی‌سازی شده و جامع.', persianGender: 'خانم' },
-  { id: 'c_mohajer', name: 'مهاجر', disciplines: ['TRX (Ladies)', 'Bodybuilding (Ladies)'], experience: '8+ Years', bio: 'Expert in TRX and ladies\' bodybuilding, Coach Mohajer helps clients build strength, stability, and sculpt their ideal physique.', image: 'https://placehold.co/400x400.png', imageHint: 'female strength coach', gender: 'Female', social: { linkedin: '#' }, persianDisciplines: ['تی‌آر‌ایکس (بانوان)', 'بدنسازی (بانوان)'], persianExperience: '+۸ سال', persianBio: 'متخصص در TRX و بدنسازی بانوان، به مراجعین کمک می‌کند تا قدرت، پایداری و فرم بدنی ایده‌آل خود را بسازند.', persianGender: 'خانم' },
-  { id: 'c_khaksar', name: 'خاکسار', disciplines: ['Bodybuilding (Ladies)'], experience: '6+ Years', bio: 'Co-leading the ladies\' bodybuilding program, Coach Khaksar is passionate about physique development and strength training.', image: 'https://placehold.co/400x400.png', imageHint: 'female bodybuilding coach', gender: 'Female', social: {}, persianDisciplines: ['بدنسازی (بانوان)'], persianExperience: '+۶ سال', persianBio: 'همراه با مربی مهاجر، برنامه بدنسازی بانوان را هدایت می‌کند و به توسعه فیزیک بدنی و تمرینات قدرتی علاقه‌مند است.', persianGender: 'خانم' },
-  { id: 'c_rahmani', name: 'رحمانی', disciplines: ['Basketball (Men & Youth)'], experience: '15+ Years', bio: 'Ex-professional player with a passion for coaching men\'s and youth basketball, from beginners to advanced levels.', image: 'https://placehold.co/400x400.png', imageHint: 'male basketball coach', gender: 'Male', social: { linkedin: '#', email: 'rahmani.b@sorenathletics.com'}, persianDisciplines: ['بسکتبال (آقایان و جوانان)'], persianExperience: '+۱۵ سال', persianBio: 'بازیکن سابق حرفه‌ای با اشتیاق به مربیگری بسکتبال آقایان و جوانان، از مبتدی تا سطوح پیشرفته.', persianGender: 'آقا' },
-  { id: 'c_ghodousi', name: 'قدوسی', disciplines: ['Volleyball (Men)'], experience: '9+ Years', bio: 'Dedicated to men\'s volleyball, Coach Ghodousi focuses on skill mastery, team strategy, and competitive excellence.', image: 'https://placehold.co/400x400.png', imageHint: 'male volleyball coach', gender: 'Male', social: {}, persianDisciplines: ['والیبال (آقایان)'], persianExperience: '+۹ سال', persianBio: 'متعهد به والیبال آقایان، بر تسلط بر مهارت، استراتژی تیمی و تعالی رقابتی تمرکز دارد.', persianGender: 'آقا' },
-  { id: 'c_amini', name: 'امینی', disciplines: ['Kung Fu'], experience: '20+ Years', bio: 'Grandmaster in Kung Fu, teaching traditional techniques, philosophy, and self-discipline to students of all ages.', image: 'https://placehold.co/400x400.png', imageHint: 'martial arts grandmaster', gender: 'Male', social: {}, persianDisciplines: ['کونگ‌فو'], persianExperience: '+۲۰ سال', persianBio: 'استاد بزرگ کونگ‌فو، آموزش تکنیک‌های سنتی، فلسفه و انضباط شخصی به شاگردان در تمام سنین.', persianGender: 'آقا' },
-  { id: 'c_nadimi', name: 'ندیمی', disciplines: ['Gymnastics (Men)'], experience: '10+ Years', bio: 'Experienced in men\'s artistic gymnastics, Coach Nadimi helps athletes build exceptional strength, agility, and control.', image: 'https://placehold.co/400x400.png', imageHint: 'male gymnastics coach', gender: 'Male', social: { instagram: '#' }, persianDisciplines: ['ژیمناستیک (آقایان)'], persianExperience: '+۱۰ سال', persianBio: 'با تجربه در ژیمناستیک هنری مردان، به ورزشکاران کمک می‌کند تا قدرت، چابکی و کنترل استثنایی کسب کنند.', persianGender: 'آقا' },
-  { id: 'c_hosseini', name: 'حسینی', disciplines: ['Karate'], experience: '12+ Years', bio: 'A seasoned Karate instructor, Coach Hosseini imparts traditional techniques, discipline, and self-defense skills.', image: 'https://placehold.co/400x400.png', imageHint: 'karate sensei', gender: 'Male', social: { email: 'hosseini.k@sorenathletics.com' }, persianDisciplines: ['کاراته'], persianExperience: '+۱۲ سال', persianBio: 'مربی باتجربه کاراته، تکنیک‌های سنتی، انضباط و مهارت‌های دفاع شخصی را آموزش می‌دهد.', persianGender: 'آقا' },
-  { id: 'c_kamali', name: 'کمالی', disciplines: ['Bodybuilding (Men)'], experience: '10+ Years', bio: 'Expert in men\'s bodybuilding, Coach Kamali designs intensive programs for muscle growth, definition, and peak physical condition.', image: 'https://placehold.co/400x400.png', imageHint: 'male bodybuilding trainer', gender: 'Male', social: { linkedin: '#' }, persianDisciplines: ['بدنسازی (آقایان)'], persianExperience: '+۱۰ سال', persianBio: 'متخصص در بدنسازی آقایان، برنامه‌های فشرده‌ای برای رشد عضلانی، تفکیک و آمادگی جسمانی بهینه طراحی می‌کند.', persianGender: 'آقا' },
+  { id: 'c_bahramzadeh', name: 'بهرام‌زاده', disciplines: ['والیبال (بانوان)'], experience: '+۱۰ سال', bio: 'مشتاق توانمندسازی ورزشکاران زن در والیبال، با تمرکز بر مهارت، کار تیمی و استراتژی رقابتی.', image: 'https://placehold.co/400x400.png', imageHint: 'female coach volleyball', gender: 'Female', social: { instagram: '#', linkedin: '#' }, persianDisciplines: ['والیبال (بانوان)'], persianExperience: '+۱۰ سال', persianBio: 'مشتاق توانمندسازی ورزشکاران زن در والیبال، با تمرکز بر مهارت، کار تیمی و استراتژی رقابتی.' , persianGender: 'خانم'},
+  { id: 'c_chamanfar', name: 'چمن‌فر', disciplines: ['والیبال (بانوان)'], experience: '+۸ سال', bio: 'متخصص در تکنیک‌های پیشرفته والیبال و استراتژی رقابتی برای بانوان. متعهد به توسعه بازیکنان.', image: 'https://placehold.co/400x400.png', imageHint: 'woman coach sport', gender: 'Female', social: { instagram: '#'}, persianDisciplines: ['والیبال (بانوان)'], persianExperience: '+۸ سال', persianBio: 'متخصص در تکنیک‌های پیشرفته والیبال و استراتژی رقابتی برای بانوان. متعهد به توسعه بازیکنان.', persianGender: 'خانم' },
+  { id: 'c_alavi', name: 'علوی', disciplines: ['بسکتبال (بانوان)'], experience: '+۷ سال', bio: 'همراه با مربی آقاجری، برنامه بسکتبال بانوان را هدایت می‌کند و بر توسعه استعدادهای جوان و پرورش عشق به بازی تمرکز دارد.', image: 'https://placehold.co/400x400.png', imageHint: 'basketball female coach', gender: 'Female', social: {}, persianDisciplines: ['بسکتبال (بانوان)'], persianExperience: '+۷ سال', persianBio: 'همراه با مربی آقاجری، برنامه بسکتبال بانوان را هدایت می‌کند و بر توسعه استعدادهای جوان و پرورش عشق به بازی تمرکز دارد.', persianGender: 'خانم' },
+  { id: 'c_aghajeri', name: 'آقاجری', disciplines: ['بسکتبال (بانوان)'], experience: '+۹ سال', bio: 'به همراه مربی علوی، بسکتبال بانوان را هدایت می‌کند، با تاکید بر مهارت‌های پایه‌ای و هوش بازی.', image: 'https://placehold.co/400x400.png', imageHint: 'coach profile woman', gender: 'Female', social: { linkedin: '#'}, persianDisciplines: ['بسکتبال (بانوان)'], persianExperience: '+۹ سال', persianBio: 'به همراه مربی علوی، بسکتبال بانوان را هدایت می‌کند، با تاکید بر مهارت‌های پایه‌ای و هوش بازی.', persianGender: 'خانم' },
+  { id: 'c_setayeshrahman', name: 'رحمان ستایش', disciplines: ['ژیمناستیک (بانوان)'], experience: '+۱۲ سال', bio: 'ژیمناست سابق تیم ملی، اکنون با تخصص و اشتیاق خود الهام‌بخش نسل بعدی ژیمناست‌های زن است.', image: 'https://placehold.co/400x400.png', imageHint: 'gymnastics female trainer', gender: 'Female', social: { instagram: '#', email: 'setayesh.r@sorenathletics.com'}, persianDisciplines: ['ژیمناستیک (بانوان)'], persianExperience: '+۱۲ سال', persianBio: 'ژیمناست سابق تیم ملی، اکنون با تخصص و اشتیاق خود الهام‌بخش نسل بعدی ژیمناست‌های زن است.', persianGender: 'خانم' },
+  { id: 'c_gholami', name: 'غلامی', disciplines: ['زومبا (بانوان)'], experience: '+۶ سال', bio: 'مربی زومبای پرانرژی و دارای گواهینامه، تناسب اندام را برای همه بانوان سرگرم‌کننده و در دسترس می‌کند.', image: 'https://placehold.co/400x400.png', imageHint: 'female zumba instructor', gender: 'Female', social: { instagram: '#' }, persianDisciplines: ['زومبا (بانوان)'], persianExperience: '+۶ سال', persianBio: 'مربی زومبای پرانرژی و دارای گواهینامه، تناسب اندام را برای همه بانوان سرگرم‌کننده و در دسترس می‌کند.', persianGender: 'خانم' },
+  { id: 'c_abbasi', name: 'عباسی', disciplines: ['ایروبیک', 'فانکشنال فیتنس (بانوان)'], experience: '+۷ سال', bio: 'کارشناس تناسب اندام چندمنظوره، جلسات جذاب ایروبیک و فانکشنال فیتنس موثر برای بانوان را هدایت می‌کند.', image: 'https://placehold.co/400x400.png', imageHint: 'female fitness coach', gender: 'Female', social: { email: 'abbasi.f@sorenathletics.com'}, persianDisciplines: ['ایروبیک', 'فانکشنال فیتنس (بانوان)'], persianExperience: '+۷ سال', persianBio: 'کارشناس تناسب اندام چندمنظوره، جلسات جذاب ایروبیک و فانکشنال فیتنس موثر برای بانوان را هدایت می‌کند.', persianGender: 'خانم' },
+  { id: 'c_mahdavi', name: 'مهدوی', disciplines: ['پکیج فیتنس (بانوان)'], experience: '+۵ سال', bio: 'متعهد به کمک به بانوان برای دستیابی به اهداف تناسب اندامشان از طریق پکیج‌های فیتنس شخصی‌سازی شده و جامع.', image: 'https://placehold.co/400x400.png', imageHint: 'female personal trainer', gender: 'Female', social: {}, persianDisciplines: ['پکیج فیتنس (بانوان)'], persianExperience: '+۵ سال', persianBio: 'متعهد به کمک به بانوان برای دستیابی به اهداف تناسب اندامشان از طریق پکیج‌های فیتنس شخصی‌سازی شده و جامع.', persianGender: 'خانم' },
+  { id: 'c_mohajer', name: 'مهاجر', disciplines: ['تی‌آر‌ایکس (بانوان)', 'بدنسازی (بانوان)'], experience: '+۸ سال', bio: 'متخصص در TRX و بدنسازی بانوان، به مراجعین کمک می‌کند تا قدرت، پایداری و فرم بدنی ایده‌آل خود را بسازند.', image: 'https://placehold.co/400x400.png', imageHint: 'female strength coach', gender: 'Female', social: { linkedin: '#' }, persianDisciplines: ['تی‌آر‌ایکس (بانوان)', 'بدنسازی (بانوان)'], persianExperience: '+۸ سال', persianBio: 'متخصص در TRX و بدنسازی بانوان، به مراجعین کمک می‌کند تا قدرت، پایداری و فرم بدنی ایده‌آل خود را بسازند.', persianGender: 'خانم' },
+  { id: 'c_khaksar', name: 'خاکسار', disciplines: ['بدنسازی (بانوان)'], experience: '+۶ سال', bio: 'همراه با مربی مهاجر، برنامه بدنسازی بانوان را هدایت می‌کند و به توسعه فیزیک بدنی و تمرینات قدرتی علاقه‌مند است.', image: 'https://placehold.co/400x400.png', imageHint: 'female bodybuilding coach', gender: 'Female', social: {}, persianDisciplines: ['بدنسازی (بانوان)'], persianExperience: '+۶ سال', persianBio: 'همراه با مربی مهاجر، برنامه بدنسازی بانوان را هدایت می‌کند و به توسعه فیزیک بدنی و تمرینات قدرتی علاقه‌مند است.', persianGender: 'خانم' },
+  { id: 'c_rahmani', name: 'رحمانی', disciplines: ['بسکتبال (آقایان و جوانان)'], experience: '+۱۵ سال', bio: 'بازیکن سابق حرفه‌ای با اشتیاق به مربیگری بسکتبال آقایان و جوانان، از مبتدی تا سطوح پیشرفته.', image: 'https://placehold.co/400x400.png', imageHint: 'male basketball coach', gender: 'Male', social: { linkedin: '#', email: 'rahmani.b@sorenathletics.com'}, persianDisciplines: ['بسکتبال (آقایان و جوانان)'], persianExperience: '+۱۵ سال', persianBio: 'بازیکن سابق حرفه‌ای با اشتیاق به مربیگری بسکتبال آقایان و جوانان، از مبتدی تا سطوح پیشرفته.', persianGender: 'آقا' },
+  { id: 'c_ghodousi', name: 'قدوسی', disciplines: ['والیبال (آقایان)'], experience: '+۹ سال', bio: 'متعهد به والیبال آقایان، بر تسلط بر مهارت، استراتژی تیمی و تعالی رقابتی تمرکز دارد.', image: 'https://placehold.co/400x400.png', imageHint: 'male volleyball coach', gender: 'Male', social: {}, persianDisciplines: ['والیبال (آقایان)'], persianExperience: '+۹ سال', persianBio: 'متعهد به والیبال آقایان، بر تسلط بر مهارت، استراتژی تیمی و تعالی رقابتی تمرکز دارد.', persianGender: 'آقا' },
+  { id: 'c_amini', name: 'امینی', disciplines: ['کونگ‌فو'], experience: '+۲۰ سال', bio: 'استاد بزرگ کونگ‌فو، آموزش تکنیک‌های سنتی، فلسفه و انضباط شخصی به شاگردان در تمام سنین.', image: 'https://placehold.co/400x400.png', imageHint: 'martial arts grandmaster', gender: 'Male', social: {}, persianDisciplines: ['کونگ‌فو'], persianExperience: '+۲۰ سال', persianBio: 'استاد بزرگ کونگ‌فو، آموزش تکنیک‌های سنتی، فلسفه و انضباط شخصی به شاگردان در تمام سنین.', persianGender: 'آقا' },
+  { id: 'c_nadimi', name: 'ندیمی', disciplines: ['ژیمناستیک (آقایان)'], experience: '+۱۰ سال', bio: 'با تجربه در ژیمناستیک هنری مردان، به ورزشکاران کمک می‌کند تا قدرت، چابکی و کنترل استثنایی کسب کنند.', image: 'https://placehold.co/400x400.png', imageHint: 'male gymnastics coach', gender: 'Male', social: { instagram: '#' }, persianDisciplines: ['ژیمناستیک (آقایان)'], persianExperience: '+۱۰ سال', persianBio: 'با تجربه در ژیمناستیک هنری مردان، به ورزشکاران کمک می‌کند تا قدرت، چابکی و کنترل استثنایی کسب کنند.', persianGender: 'آقا' },
+  { id: 'c_hosseini', name: 'حسینی', disciplines: ['کاراته'], experience: '+۱۲ سال', bio: 'مربی باتجربه کاراته، تکنیک‌های سنتی، انضباط و مهارت‌های دفاع شخصی را آموزش می‌دهد.', image: 'https://placehold.co/400x400.png', imageHint: 'karate sensei', gender: 'Male', social: { email: 'hosseini.k@sorenathletics.com' }, persianDisciplines: ['کاراته'], persianExperience: '+۱۲ سال', persianBio: 'مربی باتجربه کاراته، تکنیک‌های سنتی، انضباط و مهارت‌های دفاع شخصی را آموزش می‌دهد.', persianGender: 'آقا' },
+  { id: 'c_kamali', name: 'کمالی', disciplines: ['بدنسازی (آقایان)'], experience: '+۱۰ سال', bio: 'متخصص در بدنسازی آقایان، برنامه‌های فشرده‌ای برای رشد عضلانی، تفکیک و آمادگی جسمانی بهینه طراحی می‌کند.', image: 'https://placehold.co/400x400.png', imageHint: 'male bodybuilding trainer', gender: 'Male', social: { linkedin: '#' }, persianDisciplines: ['بدنسازی (آقایان)'], persianExperience: '+۱۰ سال', persianBio: 'متخصص در بدنسازی آقایان، برنامه‌های فشرده‌ای برای رشد عضلانی، تفکیک و آمادگی جسمانی بهینه طراحی می‌کند.', persianGender: 'آقا' },
 ];
 
 const genderMap: Record<Coach['gender'], Coach['persianGender']> = {
@@ -52,6 +52,8 @@ const genderMap: Record<Coach['gender'], Coach['persianGender']> = {
     'Female': 'خانم',
     'N/A': 'نامشخص'
 };
+// اگر لازم است که فیلترها بر اساس نام‌های انگلیسی رشته‌ها کار کنند، این مپینگ می‌تواند مفید باشد.
+// اما با توجه به اینکه داده‌های اصلی فارسی می‌شوند، شاید مستقیم از نام‌های فارسی استفاده شود.
 const disciplinePersianMapping: Record<string, string> = {
     'Volleyball (Ladies)': 'والیبال (بانوان)',
     'Basketball (Ladies)': 'بسکتبال (بانوان)',
@@ -77,13 +79,13 @@ const CoachCard = ({ coach }: { coach: Coach }) => (
     </div>
     <CardHeader className="text-center">
       <CardTitle className="font-headline text-2xl text-primary">{coach.name}</CardTitle>
-      <CardDescription className="text-muted-foreground font-persian">{coach.persianExperience || coach.experience} سابقه</CardDescription>
+      <CardDescription className="text-muted-foreground font-persian">{coach.experience} سابقه</CardDescription>
     </CardHeader>
     <CardContent className="flex-grow text-center">
       <div className="mb-2">
-        {(coach.persianDisciplines || coach.disciplines.map(d => disciplinePersianMapping[d] || d)).map(disc => <Badge key={disc} className="ms-1 mb-1 bg-primary/10 text-primary hover:bg-primary/20 font-persian">{disc}</Badge>)}
+        {(coach.disciplines).map(disc => <Badge key={disc} className="ms-1 mb-1 bg-primary/10 text-primary hover:bg-primary/20 font-persian">{disc}</Badge>)}
       </div>
-      <p className="text-sm text-foreground mb-3 font-persian">{coach.persianBio || coach.bio}</p>
+      <p className="text-sm text-foreground mb-3 font-persian">{coach.bio}</p>
     </CardContent>
     <CardFooter className="justify-center space-x-3 space-x-reverse p-4 border-t">
       {coach.social?.instagram && <a href={coach.social.instagram} target="_blank" rel="noopener noreferrer" aria-label={`${coach.name} در اینستاگرام`} className="text-muted-foreground hover:text-primary"><Instagram /></a>}
@@ -106,25 +108,31 @@ export default function CoachesPage() {
     if (!document.querySelector('meta[name="description"]')) {
         document.head.appendChild(metaDesc);
     }
+    const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', 'مربیان باشگاه سورن, لیست مربیان ورزشی شیراز, مربی والیبال, مربی بسکتبال, مربی بدنسازی, مربی ژیمناستیک, مربی کاراته, مربی کونگ فو');
+    if (!document.querySelector('meta[name="keywords"]')) {
+        document.head.appendChild(metaKeywords);
+    }
   }, []);
 
   const uniqueDisciplines = useMemo(() => {
     const disciplines = new Set<string>();
-    coachesData.forEach(coach => (coach.persianDisciplines || coach.disciplines.map(d => disciplinePersianMapping[d] || d)).forEach(disc => disciplines.add(disc)));
+    coachesData.forEach(coach => (coach.disciplines).forEach(disc => disciplines.add(disc)));
     return ['همه', ...Array.from(disciplines).sort((a, b) => a.localeCompare(b, 'fa'))];
   }, []);
 
   const uniqueGenders = useMemo(() => {
     const genders = new Set<Coach['persianGender']>();
     coachesData.forEach(coach => genders.add(coach.persianGender || genderMap[coach.gender]));
-    const sortedGenders = Array.from(genders).filter(g => g !== 'نامشخص').sort((a,b) => (a === 'خانم' ? -1 : 1)); 
+    const sortedGenders = Array.from(genders).filter(g => g && g !== 'نامشخص').sort((a,b) => (a === 'خانم' ? -1 : (b === 'خانم' ? 1 : 0))); // خانم اول، بعد آقا
     if (genders.has('نامشخص')) sortedGenders.push('نامشخص');
-    return ['همه', ...sortedGenders];
+    return ['همه', ...sortedGenders.filter(Boolean) as string[]];
   }, []);
 
   const filteredCoaches = useMemo(() => {
     return coachesData.filter(coach => {
-      const disciplineMatch = selectedDiscipline === 'همه' || (coach.persianDisciplines || coach.disciplines.map(d => disciplinePersianMapping[d] || d)).includes(selectedDiscipline);
+      const disciplineMatch = selectedDiscipline === 'همه' || (coach.disciplines).includes(selectedDiscipline);
       const genderMatch = selectedGender === 'همه' || (coach.persianGender || genderMap[coach.gender]) === selectedGender;
       return disciplineMatch && genderMatch;
     });
@@ -168,9 +176,6 @@ export default function CoachesPage() {
               </SelectContent>
             </Select>
           </div>
-          {/* <div className="flex items-end"> // Sorting button removed for now as its functionality is not implemented
-            <Button variant="outline">مرتب‌سازی: ویژه</Button>
-          </div> */}
         </div>
       </div>
       
@@ -184,3 +189,6 @@ export default function CoachesPage() {
     </div>
   );
 }
+
+
+    

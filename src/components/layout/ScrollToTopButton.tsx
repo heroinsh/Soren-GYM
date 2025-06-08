@@ -51,7 +51,7 @@ export const ScrollToTopButton = () => {
             size="icon"
             variant="default"
             className="rounded-full shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground"
-            aria-label="Scroll to top"
+            aria-label="رفتن به بالا"
           >
             <ChevronUp className="h-6 w-6" />
           </Button>
@@ -60,3 +60,6 @@ export const ScrollToTopButton = () => {
     </AnimatePresence>
   );
 };
+
+
+    
