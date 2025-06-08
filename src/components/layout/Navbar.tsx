@@ -10,7 +10,6 @@ import { Logo } from '@/components/common/Logo';
 import { Button } from '@/components/ui/button';
 import { navLinks, type NavLink } from '@/data/navLinks';
 import { cn } from '@/lib/utils';
-// import { useToast } from '@/hooks/use-toast'; // Removed as theme toast is no longer needed
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +18,6 @@ export const Navbar = () => {
   const [hasMounted, setHasMounted] = useState(false);
   const [isReadyToAnimate, setIsReadyToAnimate] = useState(false);
   const pathname = usePathname();
-  // const { toast } = useToast(); // Removed
 
   useEffect(() => {
     setHasMounted(true);
@@ -31,10 +29,9 @@ export const Navbar = () => {
     
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', handleScroll);
-      handleScroll(); // Check on mount
+      handleScroll(); 
       
       setIsLoggedIn(!!localStorage.getItem('isLoggedIn'));
-      // Theme logic removed
     }
     
     return () => {
@@ -42,7 +39,7 @@ export const Navbar = () => {
         window.removeEventListener('scroll', handleScroll);
       }
     };
-  }, [pathname]); // Pathname dependency for re-checking login status on nav
+  }, [pathname]); 
 
   useEffect(() => {
     if (hasMounted) {
@@ -70,16 +67,14 @@ export const Navbar = () => {
         if (isActive) activeFontWeight = "font-semibold";
       } else {
         if (isActive) {
-          itemClasses = "text-primary"; // primary is lime green in dark theme
+          itemClasses = "text-primary"; 
           activeFontWeight = "font-semibold";
         } else {
-          itemClasses = "text-foreground/80"; // foreground is light gray in dark theme
+          itemClasses = "text-foreground/80"; 
           hoverClasses = "hover:text-primary";
         }
       }
     } else {
-      // SSR or initial client render before hasMounted
-      // Default to non-hero styles to match server
       if (isActive) {
         itemClasses = "text-primary";
         activeFontWeight = "font-semibold";
@@ -116,12 +111,11 @@ export const Navbar = () => {
       iconButtonClass = "text-header-hero-text-green hover:text-header-hero-text-green-hover hover:bg-transparent focus:bg-transparent active:bg-transparent";
       dashboardButtonClasses = "border-header-hero-text-green text-header-hero-text-green hover:bg-header-hero-text-green/10 hover:text-header-hero-text-green-hover";
     } else {
-      logoColorClass = "text-primary hover:text-primary/90"; // primary is lime green in dark
-      iconButtonClass = "text-foreground hover:text-primary hover:bg-transparent focus:bg-transparent active:bg-transparent"; // foreground is light gray in dark
+      logoColorClass = "text-primary hover:text-primary/90"; 
+      iconButtonClass = "text-foreground hover:text-primary hover:bg-transparent focus:bg-transparent active:bg-transparent"; 
       dashboardButtonClasses = "border-primary text-primary hover:bg-primary/10 hover:text-primary";
     }
   } else {
-    // SSR / initial client render defaults (non-hero styles)
     logoColorClass = "text-primary hover:text-primary/90";
     iconButtonClass = "text-foreground hover:text-primary hover:bg-transparent focus:bg-transparent active:bg-transparent";
     dashboardButtonClasses = "border-primary text-primary hover:bg-primary/10 hover:text-primary";
@@ -149,7 +143,6 @@ export const Navbar = () => {
             {navLinks.map((link) => (
               <NavItem key={link.href} link={link} />
             ))}
-            {/* Theme toggle button removed */}
             {hasMounted ? (
               isLoggedIn ? (
                 <Button 
@@ -165,19 +158,17 @@ export const Navbar = () => {
                 </Button>
               )
             ) : (
-              // Placeholder for SSR to maintain structure, actual button renders after mount
               <Button asChild variant="default" className="bg-accent hover:bg-accent/90 text-accent-foreground ms-2 invisible">
                  <Link href="/auth/login"><LogIn className="me-2 h-4 w-4"/>عضویت / ورود</Link>
               </Button>
             )}
           </div>
           <div className="md:hidden flex items-center">
-             {/* Theme toggle button removed */}
             <Button
               onClick={() => setIsOpen(!isOpen)}
               variant="ghost"
               size="icon"
-              aria-label="باز/بسته کردن منو"
+              aria-label={isOpen ? "بستن منو" : "باز کردن منو"}
               aria-expanded={isOpen}
               className={iconButtonClass}
             >

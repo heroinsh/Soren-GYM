@@ -16,8 +16,8 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   { name: 'سارا ل.', feedback: '"باشگاه سورن زندگی من را تغییر داد! مربیان فوق‌العاده‌اند و جامعه بسیار حمایتگر است."', sport: 'فانکشنال فیتنس', rating: 5, imageHint: 'happy woman' },
-  { name: 'جان ب.', feedback: '"به لطف برنامه‌های تمرینی اختصاصی اینجا، در بسکتبال به اوج عملکردم رسیدم."', sport: 'بسکتبال', rating: 5, imageHint: 'athlete man' },
-  { name: 'امیلی ک.', feedback: '"کلاس‌های زومبا بسیار سرگرم‌کننده و یک تمرین عالی هستند. سورن را به شدت توصیه می‌کنم!"', sport: 'زومبا', rating: 5, imageSrc: 'https://placehold.co/100x100.png', imageHint: 'woman fitness' },
+  { name: 'علی ر.', feedback: '"به لطف برنامه‌های تمرینی اختصاصی اینجا، در بسکتبال به اوج عملکردم رسیدم."', sport: 'بسکتبال', rating: 5, imageHint: 'athlete man' },
+  { name: 'زهرا ک.', feedback: '"کلاس‌های زومبا بسیار سرگرم‌کننده و یک تمرین عالی هستند. سورن را به شدت توصیه می‌کنم!"', sport: 'زومبا', rating: 5, imageSrc: 'https://placehold.co/100x100.png', imageHint: 'woman fitness' },
 ];
 
 const cardVariants = {
@@ -38,7 +38,7 @@ export const Testimonials = () => {
     <section className="py-16 md:py-24 bg-card">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2 
-          className="text-4xl font-bold text-center mb-4 font-headline"
+          className="text-4xl font-bold text-center mb-4 font-headline text-primary"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
@@ -66,7 +66,7 @@ export const Testimonials = () => {
               viewport={{ once: true, amount: 0.3 }}
               className="h-full"
             >
-              <Card className="h-full flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300 text-right">
+              <Card className="h-full flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300 text-right bg-background">
                 <CardHeader className="flex flex-row-reverse items-center space-x-4 space-x-reverse pb-4 text-right">
                    <Avatar className="h-12 w-12">
                     {testimonial.imageSrc && <AvatarImage src={testimonial.imageSrc} alt={testimonial.name} data-ai-hint={testimonial.imageHint} />}
@@ -75,7 +75,7 @@ export const Testimonials = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="font-semibold font-headline text-lg">{testimonial.name}</p>
+                    <p className="font-semibold font-headline text-lg text-card-foreground">{testimonial.name}</p>
                     <p className="text-sm text-muted-foreground font-persian">{testimonial.sport}</p>
                   </div>
                 </CardHeader>

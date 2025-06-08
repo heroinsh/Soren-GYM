@@ -30,8 +30,7 @@ export default function DashboardLayout({
       setIsLoading(false);
     }
     document.documentElement.lang = 'fa';
-    // Ensure html and body are dark in dashboard as well, if not globally set
-    // document.documentElement.classList.add('dark'); 
+    document.documentElement.dir = 'rtl';
   }, [router]);
 
   useEffect(() => {
@@ -46,7 +45,8 @@ export default function DashboardLayout({
     return (
       <div className="flex min-h-screen bg-background font-persian" dir="rtl">
         <div className="flex-1 flex flex-col items-center justify-center">
-          <div className="font-persian text-lg" dir="rtl">بارگذاری...</div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
+          <div className="font-persian text-lg text-muted-foreground" dir="rtl">در حال بارگذاری پیشخوان...</div>
         </div>
         <Toaster />
       </div>
@@ -65,7 +65,7 @@ export default function DashboardLayout({
             variant="ghost"
             size="icon"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            aria-label="Toggle sidebar"
+            aria-label={isSidebarOpen ? "بستن سایدبار" : "باز کردن سایدبار"}
             className="text-foreground hover:bg-muted"
           >
             <MenuIcon className="h-6 w-6" />
@@ -83,5 +83,3 @@ export default function DashboardLayout({
     </div>
   );
 }
-
-    

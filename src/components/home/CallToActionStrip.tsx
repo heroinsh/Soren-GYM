@@ -28,13 +28,12 @@ export const CallToActionStrip = () => {
           <Button 
             asChild 
             size="lg" 
-            // variant="outline" // Remove variant to apply custom glassmorphism
             className={cn(
-              "px-8 py-3 text-lg", // Standard padding and text size
-              "border border-primary-foreground", // Keep border
-              "text-primary-foreground", // Keep text color
-              "bg-primary-foreground/10 hover:bg-primary-foreground/20", // Glassmorphism background
-              "transition-colors duration-150 rounded-md" // Ensure rounded corners and transition
+              "px-8 py-3 text-lg",
+              "border border-primary-foreground", 
+              "text-primary-foreground", 
+              "bg-primary-foreground/10 hover:bg-primary-foreground/20", 
+              "transition-colors duration-150 rounded-md" 
             )}
           >
             <Link href="/coaches">آشنایی با مربیان</Link>

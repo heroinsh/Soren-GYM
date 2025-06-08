@@ -43,44 +43,56 @@ export default function RenewalsPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   useEffect(() => {
+    document.title = "تمدید کلاس‌ها | باشگاه ورزشی سورن";
+    const metaDesc = document.querySelector('meta[name="description"]') || document.createElement('meta');
+    metaDesc.setAttribute('name', 'description');
+    metaDesc.setAttribute('content', 'اشتراک کلاس‌های فعال خود در باشگاه سورن را مدیریت و به راحتی تمدید کنید. مشاهده تاریخ انقضا و هزینه‌های تمدید.');
+    if (!document.querySelector('meta[name="description"]')) {
+        document.head.appendChild(metaDesc);
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', 'تمدید اشتراک سورن, پرداخت شهریه کلاس, مدیریت عضویت باشگاه, تاریخ انقضا کلاس');
+    if (!document.querySelector('meta[name="keywords"]')) {
+        document.head.appendChild(metaKeywords);
+    }
+
     const storedUserEnrolledClasses = localStorage.getItem('sorenUserEnrolledClasses');
     if (storedUserEnrolledClasses) {
       setEnrolledClasses(JSON.parse(storedUserEnrolledClasses));
     } else {
-      // Set default if nothing is in local storage, then save it
       setEnrolledClasses(defaultEnrolledClasses);
       localStorage.setItem('sorenUserEnrolledClasses', JSON.stringify(defaultEnrolledClasses));
     }
-    const timer = setInterval(() => setCurrentDate(new Date()), 60000); // Update current date every minute
+    const timer = setInterval(() => setCurrentDate(new Date()), 60000); 
     return () => clearInterval(timer);
   }, []);
 
 
   const handleRenewClass = (classItem: EnrolledClass) => {
     const renewalCartItem = {
-        id: `${classItem.id}-renewal-${Date.now()}`, // Ensure unique ID for cart
-        originalClassId: classItem.id, // Keep track of the original class being renewed
+        id: `${classItem.id}-renewal-${Date.now()}`, 
+        originalClassId: classItem.id, 
         name: `${classItem.name} (تمدید)`,
         coach: classItem.coach,
-        schedule: classItem.schedule, // Include schedule
-        image: 'https://placehold.co/600x400.png', // Generic image for renewal
+        schedule: classItem.schedule, 
+        image: 'https://placehold.co/600x400.png', 
         imageHint: 'تمدید کلاس',
         description: `تمدید برای ${classItem.name}`,
         tags: ['تمدید'],
-        price: classItem.monthlyFee, // Renewal price is the monthly fee
-        genderTarget: 'All', // Not strictly necessary for renewal item but good for consistency
-        ageGroup: 'All', // Same as above
+        price: classItem.monthlyFee, 
+        genderTarget: 'All', 
+        ageGroup: 'All', 
     };
 
     const currentCart = JSON.parse(localStorage.getItem('shoppingCartSoren') || '[]');
-    // Check if this specific class renewal is already in cart to avoid duplicates
     if (currentCart.find((item: { originalClassId?: string; }) => item.originalClassId === renewalCartItem.originalClassId)) {
         toast({ title: "قبلاً در سبد خرید است", description: `${classItem.name} برای تمدید از قبل در سبد خرید شما موجود است.`});
     } else {
         localStorage.setItem('shoppingCartSoren', JSON.stringify([...currentCart, renewalCartItem]));
-        toast({ title: "تمدید آغاز شد", description: `برای تمدید ${classItem.name} به صفحه پرداخت بروید.` });
+        toast({ title: "به سبد خرید اضافه شد", description: `آیتم تمدید برای ${classItem.name} به سبد خرید اضافه شد. برای تکمیل به صفحه پرداخت بروید.` });
     }
-    router.push('/checkout'); // Navigate to checkout page
+    router.push('/checkout'); 
   };
 
   const getStatusColor = (status: EnrolledClass['status']) => {
@@ -95,16 +107,15 @@ export default function RenewalsPage() {
 
   const calculateSubscriptionProgress = (nextPaymentDateStr: string) => {
     const periodEndDate = new Date(nextPaymentDateStr);
-    // Assume a 30-day period for simplicity leading up to the next payment date
     const periodStartDate = new Date(periodEndDate.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-    if (currentDate > periodEndDate) return 100; // Subscription period has ended or is overdue
-    if (currentDate < periodStartDate) return 0; // Subscription period hasn't started (or very early)
+    if (currentDate > periodEndDate) return 100; 
+    if (currentDate < periodStartDate) return 0; 
 
     const totalDuration = periodEndDate.getTime() - periodStartDate.getTime();
     const elapsedDuration = currentDate.getTime() - periodStartDate.getTime();
 
-    if (totalDuration <= 0) return 0; // Avoid division by zero or negative duration
+    if (totalDuration <= 0) return 0; 
 
     const progress = Math.max(0, Math.min(100, (elapsedDuration / totalDuration) * 100));
     return progress;
@@ -121,9 +132,9 @@ export default function RenewalsPage() {
         <Card className="shadow-lg">
           <CardContent className="pt-6 text-center">
             <CalendarClock className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
-            <p className="text-xl font-semibold">کلاسی ثبت‌نام نشده است</p>
+            <p className="text-xl font-semibold text-foreground">کلاسی ثبت‌نام نشده است</p>
             <p className="text-muted-foreground">شما در حال حاضر در هیچ کلاسی ثبت‌نام نکرده‌اید.</p>
-            <Button asChild className="mt-4">
+            <Button asChild className="mt-4 bg-accent hover:bg-accent/90 text-accent-foreground">
               <Link href="/dashboard/classes">ثبت‌نام در کلاس</Link>
             </Button>
           </CardContent>
@@ -137,14 +148,14 @@ export default function RenewalsPage() {
             return (
             <Card key={classItem.id} className={`shadow-lg hover:shadow-xl transition-shadow flex flex-col ${getStatusBgColor(classItem.status)}`}>
               <CardHeader>
-                <CardTitle className="font-headline text-xl">{classItem.name}</CardTitle>
-                <CardDescription>مربی: {classItem.coach} <br/> برنامه: {classItem.schedule}</CardDescription>
+                <CardTitle className="font-headline text-xl text-primary">{classItem.name}</CardTitle>
+                <CardDescription className="text-muted-foreground">مربی: {classItem.coach} <br/> برنامه: {classItem.schedule}</CardDescription>
               </CardHeader>
               <CardContent className="flex-grow space-y-3">
                 <div className="space-y-1">
                     <div className="flex justify-between text-xs text-muted-foreground">
                         <span>{progressValue.toFixed(0)}٪ تکمیل شده</span>
-                        <span>{daysRemaining} روز باقیمانده</span>
+                        <span>{daysRemaining > 0 ? `${daysRemaining} روز باقیمانده` : 'منقضی شده'}</span>
                     </div>
                     <Progress value={progressValue} aria-label={`${progressValue.toFixed(0)}٪ از دوره اشتراک گذشته است`} className="h-2 [&>div]:bg-primary" />
                 </div>
@@ -158,7 +169,7 @@ export default function RenewalsPage() {
                 <Button
                   className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                   onClick={() => handleRenewClass(classItem)}
-                  disabled={classItem.status === 'Active' && daysRemaining > 7} // Disable if active and more than 7 days remaining
+                  disabled={classItem.status === 'Active' && daysRemaining > 7} 
                 >
                   <RefreshCcw className="me-2 h-4 w-4" /> تمدید اشتراک
                 </Button>

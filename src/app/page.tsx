@@ -1,3 +1,4 @@
+
 import { HeroSection } from '@/components/home/HeroSection';
 import { FeaturedSports } from '@/components/home/FeaturedSports';
 import { InfoHighlights } from '@/components/home/InfoHighlights';
@@ -7,8 +8,9 @@ import { CallToActionStrip } from '@/components/home/CallToActionStrip';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Soren Athletics - Strength. Discipline. Community.',
-  description: 'Welcome to Soren Athletics. Discover top-tier sports training, modern facilities, and a vibrant community. Join us to achieve your athletic goals.',
+  title: 'باشگاه ورزشی سورن - قدرت، انضباط، جامعه',
+  description: 'به باشگاه ورزشی سورن خوش آمدید. تمرینات ورزشی سطح بالا، امکانات مدرن و جامعه‌ای پویا را کشف کنید. برای رسیدن به اهداف ورزشی خود به ما بپیوندید.',
+  keywords: ['باشگاه ورزشی سورن', 'ورزش در شیراز', 'تناسب اندام', 'بدنسازی', 'کلاس های ورزشی', 'مربی ورزشی شیراز', 'باشگاه سورن'],
 };
 
 export default function HomePage() {

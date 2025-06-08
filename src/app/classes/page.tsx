@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Users } from 'lucide-react';
+import { Users, Filter } from 'lucide-react';
 import { useState, useMemo, useEffect } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Link from 'next/link';
@@ -13,19 +13,19 @@ import { useRouter } from 'next/navigation';
 
 interface ClassItem {
   id: string;
-  name: string; // English name in data
-  coach: string; // Persian name in data
-  schedule: string; // English schedule in data
+  name: string; 
+  coach: string; 
+  schedule: string; 
   image: string;
   imageHint: string;
-  description:string; // English description in data
-  tags: string[]; // English tags in data
+  description:string; 
+  tags: string[]; 
   accessOnly?: boolean;
   price?: number;
-  persianName?: string; // For display
-  persianDescription?: string; // For display
-  persianSchedule?: string; // For display
-  persianTags?: string[]; // For display
+  persianName?: string; 
+  persianDescription?: string; 
+  persianSchedule?: string; 
+  persianTags?: string[]; 
 }
 
 interface ClassesData {
@@ -33,7 +33,6 @@ interface ClassesData {
   men: ClassItem[];
 }
 
-// Data remains mostly English for IDs and underlying structure, translations are added for display
 const classesData: ClassesData = {
   women: [
     { id: 'w-volleyball-bahramzadeh', name: 'Volleyball (Ladies)', coach: 'خانم بهرام‌زاده', schedule: 'Tuesdays & Thursdays | 17:00–18:30', image: 'https://placehold.co/600x400.png', imageHint: 'women volleyball match', description: 'Ladies volleyball class focusing on technique and teamwork.', tags: ['Volleyball', 'Team Sport', 'Ladies', 'Skill Development'], price: 7500000, persianName: 'والیبال', persianDescription: 'کلاس والیبال بانوان با مربیگری خانم بهرام‌زاده، با تمرکز بر تکنیک و کار تیمی.', persianSchedule: 'سه‌شنبه و پنج‌شنبه | ۱۷:۰۰–۱۸:۳۰', persianTags: ['والیبال', 'ورزش تیمی', 'بانوان', 'توسعه مهارت']},
@@ -92,7 +91,7 @@ const ClassCard = ({ classItem }: { classItem: ClassItem }) => {
       </CardHeader>
       <CardContent className="flex-grow">
         <p className="text-sm text-foreground mb-3 font-persian text-right">{classItem.persianDescription || classItem.description}</p>
-        <div className="flex flex-wrap gap-2 justify-start"> {/* Changed justify-end to justify-start */}
+        <div className="flex flex-wrap gap-2 justify-start">
           {(classItem.persianTags || classItem.tags).map(tag => <Badge key={tag} variant="secondary" className="font-persian">{tag}</Badge>)}
         </div>
       </CardContent>
@@ -116,7 +115,7 @@ const persianSportMapping: Record<string, string> = {
     'Zumba': 'زومبا',
     'Aerobics': 'ایروبیک',
     'Functional Fitness': 'فانکشنال فیتنس',
-    'TRX': 'تی ار ایکس', // Could also be تی‌آر‌ایکس
+    'TRX': 'تی ار ایکس',
     'Bodybuilding': 'بدنسازی',
     'Kung Fu': 'کونگ فو',
     'Karate': 'کاراته',
@@ -135,14 +134,11 @@ export default function ClassesPage() {
 
   useEffect(() => {
     document.title = "کلاس‌ها و ورزش‌ها | باشگاه ورزشی سورن";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", "لیست کامل کلاس‌های ورزشی باشگاه سورن شامل والیبال، بسکتبال، ژیمناستیک، بدنسازی و هنرهای رزمی برای بانوان و آقایان در تمام سطوح. برنامه و اطلاعات ثبت‌نام را مشاهده کنید.");
-    } else {
-      const newMeta = document.createElement('meta');
-      newMeta.name = "description";
-      newMeta.content = "لیست کامل کلاس‌های ورزشی باشگاه سورن شامل والیبال، بسکتبال، ژیمناستیک، بدنسازی و هنرهای رزمی برای بانوان و آقایان در تمام سطوح. برنامه و اطلاعات ثبت‌نام را مشاهده کنید.";
-      document.head.appendChild(newMeta);
+    const metaDesc = document.querySelector('meta[name="description"]') || document.createElement('meta');
+    metaDesc.setAttribute('name', 'description');
+    metaDesc.setAttribute('content', 'لیست کامل کلاس‌های ورزشی باشگاه سورن شامل والیبال، بسکتبال، ژیمناستیک، بدنسازی و هنرهای رزمی برای بانوان و آقایان در تمام سطوح. برنامه و اطلاعات ثبت‌نام را مشاهده کنید.');
+    if (!document.querySelector('meta[name="description"]')) {
+        document.head.appendChild(metaDesc);
     }
   }, []);
 
@@ -152,14 +148,14 @@ export default function ClassesPage() {
     const sports = new Set<string>();
     allClassItems.forEach(item => {
       if (item.accessOnly) return;
-      const baseSportName = extractSportFromClassName(item.persianName || item.name); // Use Persian name first if available for key
-      sports.add(baseSportName); // Add the direct Persian name
+      const baseSportName = extractSportFromClassName(item.persianName || item.name); 
+      sports.add(baseSportName); 
 
-      (item.persianTags || item.tags).forEach(tag => { // Iterate over Persian tags first
+      (item.persianTags || item.tags).forEach(tag => { 
         if (Object.values(persianSportMapping).includes(tag) || Object.keys(persianSportMapping).find(key => persianSportMapping[key] === tag)) {
-             sports.add(tag); // Add tag if it's a known Persian sport name
+             sports.add(tag); 
         } else if (persianSportMapping[tag]) {
-            sports.add(persianSportMapping[tag]); // If tag is English key, add its Persian value
+            sports.add(persianSportMapping[tag]); 
         }
       });
     });
@@ -170,11 +166,11 @@ export default function ClassesPage() {
     const levels = new Set<string>();
     allClassItems.forEach(item => {
       if (item.accessOnly) return;
-      (item.persianTags || item.tags).forEach(tag => { // Iterate over Persian tags first
+      (item.persianTags || item.tags).forEach(tag => { 
         if (Object.values(persianLevelMapping).includes(tag) || Object.keys(persianLevelMapping).find(key => persianLevelMapping[key] === tag)) {
-            levels.add(tag); // Add tag if it's a known Persian level name
+            levels.add(tag); 
         } else if (persianLevelMapping[tag]) {
-            levels.add(persianLevelMapping[tag]); // If tag is English key, add its Persian value
+            levels.add(persianLevelMapping[tag]); 
         }
       });
     });
@@ -212,12 +208,12 @@ export default function ClassesPage() {
       </header>
 
       <div className="mb-12 p-6 bg-card rounded-lg shadow-lg">
-        <h3 className="text-2xl font-semibold mb-4 font-headline text-primary">فیلترها</h3>
+        <h3 className="text-2xl font-semibold mb-4 font-headline text-primary flex items-center"><Filter className="ms-2 h-5 w-5"/>فیلترها</h3>
         <div className="flex flex-wrap gap-4">
           <div className="flex-grow md:flex-grow-0">
             <label htmlFor="sport-filter" className="block text-sm font-medium text-foreground mb-1">رشته ورزشی</label>
-            <Select value={selectedSport} onValueChange={setSelectedSport}>
-              <SelectTrigger id="sport-filter" className="w-full md:w-[200px]">
+            <Select value={selectedSport} onValueChange={setSelectedSport} dir="rtl">
+              <SelectTrigger id="sport-filter" className="w-full md:w-[200px]" aria-label="فیلتر بر اساس رشته ورزشی">
                 <SelectValue placeholder="انتخاب رشته" />
               </SelectTrigger>
               <SelectContent>
@@ -229,8 +225,8 @@ export default function ClassesPage() {
           </div>
           <div className="flex-grow md:flex-grow-0">
             <label htmlFor="level-filter" className="block text-sm font-medium text-foreground mb-1">سطح</label>
-            <Select value={selectedLevel} onValueChange={setSelectedLevel}>
-              <SelectTrigger id="level-filter" className="w-full md:w-[200px]">
+            <Select value={selectedLevel} onValueChange={setSelectedLevel} dir="rtl">
+              <SelectTrigger id="level-filter" className="w-full md:w-[200px]" aria-label="فیلتر بر اساس سطح">
                 <SelectValue placeholder="انتخاب سطح" />
               </SelectTrigger>
               <SelectContent>
@@ -252,7 +248,7 @@ export default function ClassesPage() {
             {filteredWomenClasses.map(classItem => <ClassCard key={classItem.id} classItem={classItem} />)}
           </div>
         ) : (
-          <p className="text-muted-foreground mb-12 text-center">هیچ کلاس بانوان با فیلترهای فعلی مطابقت ندارد.</p>
+          <p className="text-muted-foreground mb-12 text-center py-8">هیچ کلاس بانوانی با فیلترهای فعلی مطابقت ندارد. لطفا فیلترها را تغییر دهید.</p>
         )}
       </section>
 
@@ -267,7 +263,7 @@ export default function ClassesPage() {
             {filteredMenClasses.map(classItem => <ClassCard key={classItem.id} classItem={classItem} />)}
           </div>
         ) : (
-          <p className="text-muted-foreground text-center">هیچ کلاس آقایان یا جوانان با فیلترهای فعلی مطابقت ندارد.</p>
+          <p className="text-muted-foreground text-center py-8">هیچ کلاس آقایان یا جوانانی با فیلترهای فعلی مطابقت ندارد. لطفا فیلترها را تغییر دهید.</p>
         )}
       </section>
     </div>

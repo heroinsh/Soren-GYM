@@ -15,7 +15,7 @@ const highlights: HighlightItem[] = [
   {
     icon: Clock,
     title: 'ساعات کاری',
-    details: ['شنبه تا چهارشنبه: ۶ صبح - ۱۰ شب', 'پنج‌شنبه و جمعه: ۸ صبح - ۸ شب'], // Adjusted for typical Persian week, verify actual hours
+    details: ['شنبه تا چهارشنبه: ۶ صبح الی ۱۰ شب', 'پنج‌شنبه و جمعه: ۸ صبح الی ۸ شب'],
   },
   {
     icon: MapPin,

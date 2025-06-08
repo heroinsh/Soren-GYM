@@ -28,6 +28,12 @@ export default function AuthPage() {
     if (!document.querySelector('meta[name="description"]')) {
         document.head.appendChild(metaDesc);
     }
+    const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', 'ورود باشگاه سورن, ثبت نام باشگاه سورن, حساب کاربری سورن, عضویت باشگاه ورزشی');
+    if (!document.querySelector('meta[name="keywords"]')) {
+        document.head.appendChild(metaKeywords);
+    }
   }, []);
 
   const handleLogin = (event: React.FormEvent) => {
@@ -36,13 +42,12 @@ export default function AuthPage() {
       toast({ title: "خطای ورود", description: "لطفاً ایمیل و رمز عبور را وارد کنید.", variant: "destructive" });
       return;
     }
-    // Basic email validation
     if (!/\S+@\S+\.\S+/.test(email)) {
       toast({ title: "خطای ورود", description: "فرمت ایمیل وارد شده صحیح نیست.", variant: "destructive" });
       return;
     }
     console.log('شبیه‌سازی ورود برای:', email);
-    toast({ title: "ورود موفق", description: "در حال هدایت به پیشخوان..." });
+    toast({ title: "ورود موفق", description: "خوش آمدید! در حال هدایت به پیشخوان..." });
     if (typeof window !== 'undefined') {
       localStorage.setItem('isLoggedIn', 'true');
     }
@@ -68,10 +73,7 @@ export default function AuthPage() {
       return;
     }
     console.log('شبیه‌سازی ثبت‌نام برای:', email);
-    toast({ title: "ثبت‌نام موفق", description: "لطفاً برای ادامه وارد شوید." });
-    // Reset tab to login
-    // Assuming Tabs component can be controlled, or simply inform user to switch.
-    // For now, just clear fields and let user switch.
+    toast({ title: "ثبت‌نام موفق", description: "حساب کاربری شما ایجاد شد. لطفاً برای ادامه وارد شوید." });
     setFullName('');
     setEmail('');
     setPassword('');
@@ -128,7 +130,7 @@ export default function AuthPage() {
                   <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                     ورود
                   </Button>
-                  <Button variant="link" size="sm" className="text-sm text-muted-foreground" onClick={() => alert("قابلیت فراموشی رمز عبور پیاده‌سازی نشده است.")}>
+                  <Button variant="link" size="sm" className="text-sm text-muted-foreground" onClick={() => alert("قابلیت فراموشی رمز عبور هنوز پیاده‌سازی نشده است.")}>
                     رمز عبور خود را فراموش کرده‌اید؟
                   </Button>
                 </CardFooter>

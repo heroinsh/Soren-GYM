@@ -8,7 +8,7 @@ import Image from 'next/image';
 export const metadata: Metadata = {
   title: 'صفحه پیدا نشد (404) | باشگاه ورزشی سورن',
   description: 'متاسفانه صفحه‌ای که به دنبال آن بودید در باشگاه ورزشی سورن یافت نشد. لطفاً آدرس را بررسی کنید یا به صفحه اصلی بازگردید.',
-  keywords: ['خطای 404', 'صفحه پیدا نشد', 'باشگاه سورن', 'صفحه ناموجود'],
+  keywords: ['خطای 404', 'صفحه پیدا نشد', 'باشگاه سورن', 'صفحه ناموجود', 'آدرس اشتباه'],
 };
 
 export default function NotFoundPage() {
@@ -16,12 +16,12 @@ export default function NotFoundPage() {
     <div className="flex flex-col items-center justify-center min-h-screen py-24 pt-32 md:pt-40 bg-background text-foreground font-persian text-center" dir="rtl">
       <div className="max-w-md p-8">
         <Image 
-            src="https://placehold.co/300x300/FFCC00/000000.png?text=\\%3C404%3E&font=montserrat" 
-            alt="خطای 404" 
+            src="https://placehold.co/300x300/FFCC00/000000.png?text=۴۰۴&font=vazirmatn" 
+            alt="خطای ۴۰۴ - صفحه پیدا نشد" 
             width={200} 
             height={200} 
             className="mx-auto mb-8 rounded-full shadow-lg"
-            data-ai-hint="error warning"
+            data-ai-hint="error warning 404"
         />
         <h1 className="text-6xl font-bold font-headline text-primary mb-4">
           خطای ۴۰۴

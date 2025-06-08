@@ -7,8 +7,27 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BarChart, CalendarCheck, Clock, RefreshCcw, UserCircle, AlertTriangle } from "lucide-react";
 
-// Mock data - in a real app, this would come from user's data
-const overviewData = {
+interface UpcomingSession {
+  id: number;
+  name: string;
+  time: string;
+  coach: string;
+}
+
+interface ExpiringItem {
+  id: number;
+  name: string;
+  expires: string;
+  renewalLink: string;
+}
+
+interface OverviewData {
+  upcomingSessions: UpcomingSession[];
+  expiringSoon: ExpiringItem[];
+  profileCompletion: number;
+}
+
+const overviewData: OverviewData = {
   upcomingSessions: [
     { id: 1, name: "والیبال", time: "فردا، ۱۷:۰۰", coach: "خانم بهرام‌زاده" },
     { id: 2, name: "بسکتبال (نیمه/پیشرفته)", time: "دوشنبه آینده، ۱۷:۰۰", coach: "آقای رحمانی" },
@@ -16,20 +35,23 @@ const overviewData = {
   expiringSoon: [
     { id: 1, name: "ژیمناستیک", expires: "تا ۳ روز دیگر", renewalLink: "/dashboard/renewals" },
   ],
-  profileCompletion: 75, // Percentage
+  profileCompletion: 75, 
 };
 
 export default function DashboardOverviewPage() {
   useEffect(() => {
     document.title = "پیشخوان | باشگاه ورزشی سورن";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", "به پیشخوان کاربری خود در باشگاه سورن خوش آمدید. فعالیت‌ها، کلاس‌های پیش‌رو، وضعیت پروفایل و هشدارهای خود را مشاهده کنید.");
-    } else {
-      const newMeta = document.createElement('meta');
-      newMeta.name = "description";
-      newMeta.content = "به پیشخوان کاربری خود در باشگاه سورن خوش آمدید. فعالیت‌ها، کلاس‌های پیش‌رو، وضعیت پروفایل و هشدارهای خود را مشاهده کنید.";
-      document.head.appendChild(newMeta);
+    const metaDesc = document.querySelector('meta[name="description"]') || document.createElement('meta');
+    metaDesc.setAttribute('name', 'description');
+    metaDesc.setAttribute('content', 'به پیشخوان کاربری خود در باشگاه سورن خوش آمدید. فعالیت‌ها، کلاس‌های پیش‌رو، وضعیت پروفایل و هشدارهای خود را مشاهده کنید.');
+    if (!document.querySelector('meta[name="description"]')) {
+        document.head.appendChild(metaDesc);
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', 'پیشخوان سورن, داشبورد ورزشی, پروفایل کاربر, کلاس های من, وضعیت اشتراک');
+    if (!document.querySelector('meta[name="keywords"]')) {
+        document.head.appendChild(metaKeywords);
     }
   }, []);
 
@@ -43,8 +65,8 @@ export default function DashboardOverviewPage() {
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card className="shadow-lg hover:shadow-xl transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center font-headline text-xl">
-              <UserCircle className="ms-2 h-6 w-6 text-primary" />
+            <CardTitle className="flex items-center font-headline text-xl text-primary">
+              <UserCircle className="ms-2 h-6 w-6" />
               تکمیل پروفایل
             </CardTitle>
           </CardHeader>
@@ -66,8 +88,8 @@ export default function DashboardOverviewPage() {
 
         <Card className="shadow-lg hover:shadow-xl transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center font-headline text-xl">
-              <CalendarCheck className="ms-2 h-6 w-6 text-primary" />
+            <CardTitle className="flex items-center font-headline text-xl text-primary">
+              <CalendarCheck className="ms-2 h-6 w-6" />
               جلسات پیش‌رو
             </CardTitle>
           </CardHeader>
@@ -76,7 +98,7 @@ export default function DashboardOverviewPage() {
               <ul className="space-y-2">
                 {overviewData.upcomingSessions.map(session => (
                   <li key={session.id} className="text-sm">
-                    <p className="font-semibold">{session.name}</p>
+                    <p className="font-semibold text-foreground">{session.name}</p>
                     <p className="text-muted-foreground"><Clock className="inline h-4 w-4 me-1"/>{session.time} با مربی {session.coach}</p>
                   </li>
                 ))}
@@ -92,8 +114,8 @@ export default function DashboardOverviewPage() {
 
         <Card className="shadow-lg hover:shadow-xl transition-shadow">
           <CardHeader>
-            <CardTitle className="flex items-center font-headline text-xl">
-              <AlertTriangle className="ms-2 h-6 w-6 text-destructive" />
+            <CardTitle className="flex items-center font-headline text-xl text-destructive">
+              <AlertTriangle className="ms-2 h-6 w-6" />
              هشدارهای انقضا
             </CardTitle>
           </CardHeader>
@@ -104,7 +126,7 @@ export default function DashboardOverviewPage() {
                   <li key={item.id} className="text-sm">
                     <p className="font-semibold text-destructive">{item.name}</p>
                     <p className="text-muted-foreground">تاریخ انقضا: {item.expires}</p>
-                    <Button variant="link" size="sm" asChild className="p-0 h-auto text-primary">
+                    <Button variant="link" size="sm" asChild className="p-0 h-auto text-primary hover:underline">
                       <Link href={item.renewalLink}>
                         <span>تمدید کنید <RefreshCcw className="ms-1 h-3 w-3"/></span>
                       </Link>

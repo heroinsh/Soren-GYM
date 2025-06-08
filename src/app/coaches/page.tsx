@@ -3,20 +3,20 @@
 import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Instagram, Linkedin, Mail } from 'lucide-react';
+import { Instagram, Linkedin, Mail, Filter } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useState, useMemo, useEffect } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface Coach {
   id: string;
-  name: string; // This is already Persian from user data
-  disciplines: string[]; // English in data, will be translated for display
-  experience: string; // English in data, will be translated
-  bio: string; // English in data, will be translated
+  name: string; 
+  disciplines: string[]; 
+  experience: string; 
+  bio: string; 
   image: string;
   imageHint: string;
-  gender: 'Male' | 'Female' | 'N/A'; // Will map to Persian
+  gender: 'Male' | 'Female' | 'N/A'; 
   persianDisciplines?: string[];
   persianExperience?: string;
   persianBio?: string;
@@ -28,7 +28,6 @@ interface Coach {
   };
 }
 
-// Data remains mostly English for IDs and underlying structure, translations are added for display
 const coachesData: Coach[] = [
   { id: 'c_bahramzadeh', name: 'بهرام‌زاده', disciplines: ['Volleyball (Ladies)'], experience: '10+ Years', bio: 'Passionate about empowering female athletes in volleyball, focusing on skill, teamwork, and competitive strategy.', image: 'https://placehold.co/400x400.png', imageHint: 'female coach volleyball', gender: 'Female', social: { instagram: '#', linkedin: '#' }, persianDisciplines: ['والیبال (بانوان)'], persianExperience: '+۱۰ سال', persianBio: 'مشتاق توانمندسازی ورزشکاران زن در والیبال، با تمرکز بر مهارت، کار تیمی و استراتژی رقابتی.' , persianGender: 'خانم'},
   { id: 'c_chamanfar', name: 'چمن‌فر', disciplines: ['Volleyball (Ladies)'], experience: '8+ Years', bio: 'Specializes in advanced volleyball techniques and competitive strategy for women. Dedicated to player development.', image: 'https://placehold.co/400x400.png', imageHint: 'woman coach sport', gender: 'Female', social: { instagram: '#'}, persianDisciplines: ['والیبال (بانوان)'], persianExperience: '+۸ سال', persianBio: 'متخصص در تکنیک‌های پیشرفته والیبال و استراتژی رقابتی برای بانوان. متعهد به توسعه بازیکنان.', persianGender: 'خانم' },
@@ -47,7 +46,6 @@ const coachesData: Coach[] = [
   { id: 'c_hosseini', name: 'حسینی', disciplines: ['Karate'], experience: '12+ Years', bio: 'A seasoned Karate instructor, Coach Hosseini imparts traditional techniques, discipline, and self-defense skills.', image: 'https://placehold.co/400x400.png', imageHint: 'karate sensei', gender: 'Male', social: { email: 'hosseini.k@sorenathletics.com' }, persianDisciplines: ['کاراته'], persianExperience: '+۱۲ سال', persianBio: 'مربی باتجربه کاراته، تکنیک‌های سنتی، انضباط و مهارت‌های دفاع شخصی را آموزش می‌دهد.', persianGender: 'آقا' },
   { id: 'c_kamali', name: 'کمالی', disciplines: ['Bodybuilding (Men)'], experience: '10+ Years', bio: 'Expert in men\'s bodybuilding, Coach Kamali designs intensive programs for muscle growth, definition, and peak physical condition.', image: 'https://placehold.co/400x400.png', imageHint: 'male bodybuilding trainer', gender: 'Male', social: { linkedin: '#' }, persianDisciplines: ['بدنسازی (آقایان)'], persianExperience: '+۱۰ سال', persianBio: 'متخصص در بدنسازی آقایان، برنامه‌های فشرده‌ای برای رشد عضلانی، تفکیک و آمادگی جسمانی بهینه طراحی می‌کند.', persianGender: 'آقا' },
 ];
-
 
 const genderMap: Record<Coach['gender'], Coach['persianGender']> = {
     'Male': 'آقا',
@@ -72,7 +70,6 @@ const disciplinePersianMapping: Record<string, string> = {
     'Bodybuilding (Men)': 'بدنسازی (آقایان)',
 };
 
-
 const CoachCard = ({ coach }: { coach: Coach }) => (
   <Card className="overflow-hidden flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card text-right">
     <div className="relative w-full aspect-square">
@@ -88,29 +85,26 @@ const CoachCard = ({ coach }: { coach: Coach }) => (
       </div>
       <p className="text-sm text-foreground mb-3 font-persian">{coach.persianBio || coach.bio}</p>
     </CardContent>
-    <CardFooter className="justify-center space-x-3 space-x-reverse p-4 border-t"> {/* space-x-reverse for RTL */}
+    <CardFooter className="justify-center space-x-3 space-x-reverse p-4 border-t">
       {coach.social?.instagram && <a href={coach.social.instagram} target="_blank" rel="noopener noreferrer" aria-label={`${coach.name} در اینستاگرام`} className="text-muted-foreground hover:text-primary"><Instagram /></a>}
       {coach.social?.linkedin && <a href={coach.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${coach.name} در لینکدین`} className="text-muted-foreground hover:text-primary"><Linkedin /></a>}
-      {coach.social?.email && <a href={`mailto:${coach.social.email}`} aria-label={`ایمیل ${coach.name}`} className="text-muted-foreground hover:text-primary"><Mail /></a>}
+      {coach.social?.email && <a href={`mailto:${coach.social.email}`} aria-label={`ایمیل به ${coach.name}`} className="text-muted-foreground hover:text-primary"><Mail /></a>}
       {!coach.social?.instagram && !coach.social?.linkedin && !coach.social?.email && <p className="text-xs text-muted-foreground font-persian">اطلاعات تماس در پذیرش موجود است.</p>}
     </CardFooter>
   </Card>
 );
 
 export default function CoachesPage() {
-  const [selectedDiscipline, setSelectedDiscipline] = useState<string>('All');
-  const [selectedGender, setSelectedGender] = useState<string>('All');
+  const [selectedDiscipline, setSelectedDiscipline] = useState<string>('همه');
+  const [selectedGender, setSelectedGender] = useState<string>('همه');
 
   useEffect(() => {
     document.title = "مربیان باشگاه | باشگاه ورزشی سورن";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", "با تیم مربیان حرفه‌ای و مجرب باشگاه ورزشی سورن آشنا شوید. تخصص‌ها، سوابق و اطلاعات تماس مربیان والیبال، بسکتبال، بدنسازی و سایر رشته‌ها.");
-    } else {
-      const newMeta = document.createElement('meta');
-      newMeta.name = "description";
-      newMeta.content = "با تیم مربیان حرفه‌ای و مجرب باشگاه ورزشی سورن آشنا شوید. تخصص‌ها، سوابق و اطلاعات تماس مربیان والیبال، بسکتبال، بدنسازی و سایر رشته‌ها.";
-      document.head.appendChild(newMeta);
+    const metaDesc = document.querySelector('meta[name="description"]') || document.createElement('meta');
+    metaDesc.setAttribute('name', 'description');
+    metaDesc.setAttribute('content', 'با تیم مربیان حرفه‌ای و مجرب باشگاه ورزشی سورن آشنا شوید. تخصص‌ها، سوابق و اطلاعات تماس مربیان والیبال، بسکتبال، بدنسازی و سایر رشته‌ها.');
+    if (!document.querySelector('meta[name="description"]')) {
+        document.head.appendChild(metaDesc);
     }
   }, []);
 
@@ -123,7 +117,7 @@ export default function CoachesPage() {
   const uniqueGenders = useMemo(() => {
     const genders = new Set<Coach['persianGender']>();
     coachesData.forEach(coach => genders.add(coach.persianGender || genderMap[coach.gender]));
-    const sortedGenders = Array.from(genders).filter(g => g !== 'نامشخص').sort((a,b) => (a === 'خانم' ? -1 : 1)); // خانم اول، بعد آقا
+    const sortedGenders = Array.from(genders).filter(g => g !== 'نامشخص').sort((a,b) => (a === 'خانم' ? -1 : 1)); 
     if (genders.has('نامشخص')) sortedGenders.push('نامشخص');
     return ['همه', ...sortedGenders];
   }, []);
@@ -146,12 +140,12 @@ export default function CoachesPage() {
       </header>
 
       <div className="mb-12 p-6 bg-card rounded-lg shadow-lg">
-        <h3 className="text-2xl font-semibold mb-4 font-headline text-primary">فیلتر مربیان</h3>
+        <h3 className="text-2xl font-semibold mb-4 font-headline text-primary flex items-center"><Filter className="ms-2 h-5 w-5"/>فیلتر مربیان</h3>
         <div className="flex flex-wrap gap-4">
           <div className="flex-grow md:flex-grow-0">
             <label htmlFor="discipline-filter" className="block text-sm font-medium text-foreground mb-1">رشته</label>
             <Select value={selectedDiscipline} onValueChange={setSelectedDiscipline} dir="rtl">
-              <SelectTrigger id="discipline-filter" className="w-full md:w-[200px]">
+              <SelectTrigger id="discipline-filter" className="w-full md:w-[200px]" aria-label="فیلتر بر اساس رشته">
                 <SelectValue placeholder="انتخاب رشته" />
               </SelectTrigger>
               <SelectContent>
@@ -164,7 +158,7 @@ export default function CoachesPage() {
           <div className="flex-grow md:flex-grow-0">
             <label htmlFor="gender-filter" className="block text-sm font-medium text-foreground mb-1">جنسیت</label>
             <Select value={selectedGender} onValueChange={setSelectedGender} dir="rtl">
-              <SelectTrigger id="gender-filter" className="w-full md:w-[200px]">
+              <SelectTrigger id="gender-filter" className="w-full md:w-[200px]" aria-label="فیلتر بر اساس جنسیت">
                 <SelectValue placeholder="انتخاب جنسیت" />
               </SelectTrigger>
               <SelectContent>
@@ -174,9 +168,9 @@ export default function CoachesPage() {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex items-end">
+          {/* <div className="flex items-end"> // Sorting button removed for now as its functionality is not implemented
             <Button variant="outline">مرتب‌سازی: ویژه</Button>
-          </div>
+          </div> */}
         </div>
       </div>
       
@@ -185,7 +179,7 @@ export default function CoachesPage() {
           {filteredCoaches.map(coach => <CoachCard key={coach.id} coach={coach} />)}
         </div>
       ) : (
-        <p className="text-muted-foreground text-center">مربی با فیلترهای فعلی مطابقت ندارد.</p>
+        <p className="text-muted-foreground text-center py-8">مربی با فیلترهای فعلی مطابقت ندارد. لطفا فیلترها را تغییر دهید.</p>
       )}
     </div>
   );

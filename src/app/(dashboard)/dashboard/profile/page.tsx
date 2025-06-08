@@ -12,12 +12,11 @@ import { cn } from '@/lib/utils';
 import { Textarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider'; 
 
-// Mock data - in a real app, this would be fetched and saved
 const initialProfileData = {
   fullName: "آریا رحیمی",
   email: "aria.rahimi@example.com", 
   phone: "09123456789",
-  dateOfBirth: "1370/05/15", // Example Shamsi DOB "YYYY/MM/DD"
+  dateOfBirth: "1370/05/15", 
   gender: "مرد",
   nationalId: "0012345678", 
   address: "خیابان ورزش، کوچه تندرستی، پلاک ۱۲۳",
@@ -28,7 +27,7 @@ const initialProfileData = {
 const initialPhysicalData = {
   weightKg: 75, 
   heightCm: 180, 
-  fitnessLevel: "متوسط", // مبتدی، متوسط، پیشرفته
+  fitnessLevel: "متوسط", 
   healthConditions: "ندارد", 
 };
 
@@ -40,14 +39,17 @@ export default function ProfilePage() {
 
   useEffect(() => {
     document.title = "پروفایل من | باشگاه ورزشی سورن";
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute("content", "اطلاعات شخصی، تماس و فیزیکی خود را در باشگاه سورن مشاهده و ویرایش کنید. پروفایل خود را برای تجربه بهتر به‌روز نگه دارید.");
-    } else {
-      const newMeta = document.createElement('meta');
-      newMeta.name = "description";
-      newMeta.content = "اطلاعات شخصی، تماس و فیزیکی خود را در باشگاه سورن مشاهده و ویرایش کنید. پروفایل خود را برای تجربه بهتر به‌روز نگه دارید.";
-      document.head.appendChild(newMeta);
+    const metaDesc = document.querySelector('meta[name="description"]') || document.createElement('meta');
+    metaDesc.setAttribute('name', 'description');
+    metaDesc.setAttribute('content', 'اطلاعات شخصی، تماس و فیزیکی خود را در باشگاه سورن مشاهده و ویرایش کنید. پروفایل خود را برای تجربه بهتر به‌روز نگه دارید.');
+    if (!document.querySelector('meta[name="description"]')) {
+        document.head.appendChild(metaDesc);
+    }
+    const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', 'پروفایل کاربری سورن, ویرایش اطلاعات شخصی, اطلاعات فیزیکی, سابقه ورزشی, مشخصات کاربر');
+    if (!document.querySelector('meta[name="keywords"]')) {
+        document.head.appendChild(metaKeywords);
     }
   }, []);
 
@@ -81,25 +83,24 @@ export default function ProfilePage() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (!profileData.fullName || !profileData.phone || !profileData.dateOfBirth || !profileData.gender || !profileData.nationalId || !profileData.address || !profileData.emergencyContactName || !profileData.emergencyContactPhone || physicalData.weightKg <=0 || physicalData.heightCm <=0 || !physicalData.fitnessLevel) {
-        toast({ title: "خطا", description: "لطفاً تمام فیلدهای الزامی ستاره‌دار (*) را پر کنید و مقادیر معتبر برای قد و وزن وارد نمایید.", variant: "destructive" });
+        toast({ title: "خطا در اعتبار سنجی", description: "لطفاً تمام فیلدهای الزامی ستاره‌دار (*) را پر کنید و مقادیر معتبر برای قد و وزن وارد نمایید.", variant: "destructive" });
         return;
     }
     if (!/^\d{10}$/.test(profileData.nationalId)) {
-        toast({ title: "خطا", description: "کد ملی باید ۱۰ رقم باشد.", variant: "destructive" });
+        toast({ title: "خطا در کد ملی", description: "کد ملی باید ۱۰ رقم باشد و فقط شامل اعداد باشد.", variant: "destructive" });
         return;
     }
     if (!/^(09)\d{9}$/.test(profileData.phone) || !/^(09)\d{9}$/.test(profileData.emergencyContactPhone)) {
-        toast({ title: "خطا", description: "فرمت شماره تلفن صحیح نیست (مثال: 09123456789).", variant: "destructive" });
+        toast({ title: "خطا در شماره تلفن", description: "فرمت شماره تلفن صحیح نیست (مثال: 09123456789).", variant: "destructive" });
         return;
     }
-    // Basic validation for Shamsi date format YYYY/MM/DD
-    if (!/^\d{4}\/\d{2}\/\d{2}$/.test(profileData.dateOfBirth)) {
-        toast({ title: "خطا", description: "فرمت تاریخ تولد شمسی صحیح نیست (مثال: ۱۳۷۰/۰۵/۱۵).", variant: "destructive" });
+    if (!/^\d{4}\/(0[1-9]|1[012])\/(0[1-9]|[12][0-9]|3[01])$/.test(profileData.dateOfBirth)) {
+        toast({ title: "خطا در تاریخ تولد", description: "فرمت تاریخ تولد شمسی صحیح نیست (مثال: ۱۳۷۰/۰۵/۱۵) یا تاریخ نامعتبر است.", variant: "destructive" });
         return;
     }
 
-    console.log("Saving profile data:", profileData);
-    console.log("Saving physical data:", physicalData);
+    console.log("ذخیره اطلاعات پروفایل:", profileData);
+    console.log("ذخیره اطلاعات فیزیکی:", physicalData);
     toast({ title: "پروفایل به‌روزرسانی شد", description: "اطلاعات شما با موفقیت ذخیره شد." });
   };
 
@@ -123,11 +124,11 @@ export default function ProfilePage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="email">ایمیل</Label>
-              <Input id="email" name="email" type="email" value={profileData.email} readOnly disabled className="bg-muted/50 cursor-not-allowed" autoComplete="email" />
+              <Input id="email" name="email" type="email" value={profileData.email} readOnly disabled className="bg-muted/50 cursor-not-allowed" autoComplete="email" dir="ltr"/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="phone">شماره تلفن *</Label>
-              <Input id="phone" name="phone" type="tel" value={profileData.phone} onChange={handleProfileChange} placeholder="مثال: 09123456789" required autoComplete="tel" pattern="^(09)\d{9}$" title="شماره تلفن باید با 09 شروع شود و ۱۱ رقم باشد."/>
+              <Input id="phone" name="phone" type="tel" value={profileData.phone} onChange={handleProfileChange} placeholder="مثال: 09123456789" required autoComplete="tel" pattern="^(09)\d{9}$" title="شماره تلفن باید با 09 شروع شود و ۱۱ رقم باشد." dir="ltr"/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="dateOfBirth">تاریخ تولد (شمسی) *</Label>
@@ -138,8 +139,8 @@ export default function ProfilePage() {
                 onChange={handleProfileChange} 
                 placeholder="مثال: ۱۳۷۰/۰۵/۱۵" 
                 required 
-                pattern="\d{4}/\d{2}/\d{2}" 
-                title="تاریخ را به فرمت شمسی YYYY/MM/DD وارد کنید."
+                pattern="\d{4}/(0[1-9]|1[012])/(0[1-9]|[12][0-9]|3[01])" 
+                title="تاریخ را به فرمت شمسی YYYY/MM/DD وارد کنید (مثلا ۱۳۷۰/۰۵/۱۵)."
                 maxLength={10}
                 className="text-right" 
                 dir="ltr" 
@@ -148,8 +149,8 @@ export default function ProfilePage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="gender">جنسیت *</Label>
-              <Select name="gender" value={profileData.gender} onValueChange={handleGenderChange} required>
-                <SelectTrigger id="gender">
+              <Select name="gender" value={profileData.gender} onValueChange={handleGenderChange} required dir="rtl">
+                <SelectTrigger id="gender" aria-label="انتخاب جنسیت">
                   <SelectValue placeholder="انتخاب جنسیت" />
                 </SelectTrigger>
                 <SelectContent>
@@ -162,7 +163,7 @@ export default function ProfilePage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="nationalId">کد ملی *</Label>
-              <Input id="nationalId" name="nationalId" type="text" value={profileData.nationalId} onChange={handleProfileChange} placeholder="مثال: 0012345678" required pattern="\d{10}" title="کد ملی باید ۱۰ رقم باشد." maxLength={10} />
+              <Input id="nationalId" name="nationalId" type="text" value={profileData.nationalId} onChange={handleProfileChange} placeholder="مثال: 0012345678" required pattern="\d{10}" title="کد ملی باید ۱۰ رقم باشد." maxLength={10} dir="ltr"/>
             </div>
             <div className="space-y-2 md:col-span-2">
               <Label htmlFor="address">آدرس *</Label>
@@ -174,7 +175,7 @@ export default function ProfilePage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="emergencyContactPhone">تلفن مخاطب اضطراری *</Label>
-              <Input id="emergencyContactPhone" name="emergencyContactPhone" type="tel" value={profileData.emergencyContactPhone} onChange={handleProfileChange} required pattern="^(09)\d{9}$" title="شماره تلفن باید با 09 شروع شود و ۱۱ رقم باشد." autoComplete="off" />
+              <Input id="emergencyContactPhone" name="emergencyContactPhone" type="tel" value={profileData.emergencyContactPhone} onChange={handleProfileChange} required pattern="^(09)\d{9}$" title="شماره تلفن باید با 09 شروع شود و ۱۱ رقم باشد." autoComplete="off" dir="ltr"/>
             </div>
           </CardContent>
         </Card>
@@ -199,7 +200,8 @@ export default function ProfilePage() {
                 step={1}
                 onValueChange={handleWeightChange}
                 className="my-2"
-                aria-label="انتخاب وزن"
+                aria-label={`انتخاب وزن، مقدار فعلی ${physicalData.weightKg} کیلوگرم`}
+                dir="rtl"
               />
             </div>
             <div className="space-y-2">
@@ -216,13 +218,14 @@ export default function ProfilePage() {
                 step={1}
                 onValueChange={handleHeightChange}
                 className="my-2"
-                aria-label="انتخاب قد"
+                aria-label={`انتخاب قد، مقدار فعلی ${physicalData.heightCm} سانتی‌متر`}
+                dir="rtl"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="fitnessLevel">سطح آمادگی جسمانی *</Label>
-              <Select name="fitnessLevel" value={physicalData.fitnessLevel} onValueChange={handleFitnessLevelChange} required>
-                <SelectTrigger id="fitnessLevel">
+              <Select name="fitnessLevel" value={physicalData.fitnessLevel} onValueChange={handleFitnessLevelChange} required dir="rtl">
+                <SelectTrigger id="fitnessLevel" aria-label="انتخاب سطح آمادگی جسمانی">
                   <SelectValue placeholder="انتخاب سطح آمادگی" />
                 </SelectTrigger>
                 <SelectContent>

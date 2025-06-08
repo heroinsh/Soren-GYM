@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Image from 'next/image';
-import { Trash2, ArrowRight, CreditCard, Ticket } from 'lucide-react'; // ArrowLeft to ArrowRight for RTL
+import { Trash2, ArrowRight, CreditCard, Ticket } from 'lucide-react'; 
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
@@ -53,6 +53,12 @@ export default function CheckoutPage() {
     if (!document.querySelector('meta[name="description"]')) {
         document.head.appendChild(metaDesc);
     }
+    const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', 'پرداخت آنلاین باشگاه سورن, سبد خرید سورن, نهایی کردن ثبت نام کلاس, شهریه کلاس ورزشی');
+    if (!document.querySelector('meta[name="keywords"]')) {
+        document.head.appendChild(metaKeywords);
+    }
 
     const storedCart = localStorage.getItem('shoppingCartSoren');
     if (storedCart) {
@@ -86,7 +92,7 @@ export default function CheckoutPage() {
   const handleApplyDiscount = () => {
     if (discountCode.toUpperCase() === 'SOREN10') { 
       setAppliedDiscount(10);
-      toast({ title: "تخفیف اعمال شد", description: "تخفیف ۱۰٪ اعمال شد." });
+      toast({ title: "تخفیف اعمال شد", description: "تخفیف ۱۰٪ با موفقیت اعمال شد." });
     } else if (discountCode) {
       toast({ title: "کد نامعتبر", description: "کد تخفیف وارد شده معتبر نیست.", variant: "destructive" });
       setAppliedDiscount(0);
@@ -98,11 +104,10 @@ export default function CheckoutPage() {
   const handleProceedToPayment = () => {
     toast({ 
       title: "در حال انتقال به درگاه پرداخت...", 
-      description: "لطفاً منتظر بمانید.",
+      description: "لطفاً منتظر بمانید. این یک فرآیند شبیه‌سازی شده است.",
       duration: 3000 
     });
 
-    // Simulate payment processing and enrollment update
     setTimeout(() => {
       const existingEnrolledClasses: UserEnrolledClass[] = JSON.parse(localStorage.getItem('sorenUserEnrolledClasses') || '[]');
       const updatedEnrolledClasses = [...existingEnrolledClasses];
@@ -133,13 +138,9 @@ export default function CheckoutPage() {
       });
 
       localStorage.setItem('sorenUserEnrolledClasses', JSON.stringify(updatedEnrolledClasses));
-      // Cart is cleared on the verification page after successful confirmation
-      // localStorage.removeItem('shoppingCartSoren'); 
-      // setCartItems([]); 
-
+      
       const mockTrackingCode = `SRN-${Date.now().toString().slice(-6)}`;
       router.push(`/verify-payment?status=success&trackingCode=${mockTrackingCode}`);
-      // Toast for successful payment will be shown on verify-payment page or handled there
     }, 3000);
   };
   
@@ -147,18 +148,17 @@ export default function CheckoutPage() {
     return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32 md:pt-40 flex flex-col items-center justify-center text-center min-h-[calc(100vh-10rem)]">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-            <p className="mt-4 text-lg text-muted-foreground">در حال بارگذاری سبد خرید...</p>
+            <p className="mt-4 text-lg text-muted-foreground">در حال بارگذاری سبد خرید شما...</p>
         </div>
     );
   }
 
   if (cartItems.length === 0 && !isLoading) {
-      // This case should ideally be handled by the useEffect redirect, but as a fallback:
       return (
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32 md:pt-40 flex flex-col items-center justify-center text-center min-h-[calc(100vh-10rem)]">
-            <h1 className="text-4xl font-bold font-headline mb-4">پرداخت</h1>
+            <h1 className="text-4xl font-bold font-headline mb-4 text-primary">پرداخت</h1>
             <p className="text-xl text-muted-foreground mb-8">سبد خرید شما در حال حاضر خالی است.</p>
-            <Button asChild>
+            <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 <Link href="/dashboard/classes">مرور کلاس‌ها</Link>
             </Button>
         </div>
@@ -168,10 +168,10 @@ export default function CheckoutPage() {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32 md:pt-40">
       <header className="mb-10 text-center relative">
-        <Button variant="outline" onClick={() => router.back()} className="absolute right-0 top-0 md:right-8 md:top-0"> {/* left-0 to right-0 for RTL */}
-            <ArrowRight className="me-2 h-4 w-4"/> بازگشت {/* mr-2 to me-2 */}
+        <Button variant="outline" onClick={() => router.back()} className="absolute right-0 top-0 md:right-8 md:top-0"> 
+            <ArrowRight className="me-2 h-4 w-4"/> بازگشت
         </Button>
-        <h1 className="text-4xl font-bold font-headline">پرداخت</h1>
+        <h1 className="text-4xl font-bold font-headline text-primary">پرداخت</h1>
         <p className="text-lg text-muted-foreground">ثبت‌نام کلاس‌های خود را نهایی کنید.</p>
       </header>
 
@@ -179,7 +179,7 @@ export default function CheckoutPage() {
         <div className="lg:col-span-2 space-y-6">
             <h2 className="text-2xl font-semibold font-headline">خلاصه سفارش</h2>
             {cartItems.map(item => (
-            <Card key={item.id} className="flex items-center p-4 space-s-4 shadow"> {/* space-x-4 to space-s-4 for RTL */}
+            <Card key={item.id} className="flex items-center p-4 space-s-4 shadow">
                 <div className="relative w-24 h-[75px] sm:w-[100px] sm:h-[75px] shrink-0">
                     <Image
                         src={item.image}
@@ -195,16 +195,16 @@ export default function CheckoutPage() {
                 <p className="text-sm text-muted-foreground">مربی: {item.coach}</p>
                 <p className="text-sm text-muted-foreground">برنامه: {item.schedule}</p>
                 </div>
-                <div className="text-start"> {/* text-right to text-start for RTL */}
+                <div className="text-start"> 
                 <p className="font-semibold text-lg">{item.price ? new Intl.NumberFormat('fa-IR').format(item.price) : 'رایگان'} ریال</p>
                 <Button
                     variant="ghost"
                     size="sm"
                     className="text-destructive hover:text-destructive/80 mt-1 px-1"
                     onClick={() => handleRemoveItem(item.id)}
-                    aria-label={`حذف ${item.name}`}
+                    aria-label={`حذف ${item.name} از سبد خرید`}
                 >
-                    <Trash2 className="me-1 h-4 w-4" /> حذف {/* mr-1 to me-1 */}
+                    <Trash2 className="me-1 h-4 w-4" /> حذف
                 </Button>
                 </div>
             </Card>
@@ -217,7 +217,7 @@ export default function CheckoutPage() {
               <CardTitle className="font-headline text-xl">جزئیات پرداخت</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-end space-s-2"> {/* space-x-2 to space-s-2 */}
+              <div className="flex items-end space-s-2"> 
                 <div className="flex-grow space-y-1">
                   <Label htmlFor="discountCode">کد تخفیف</Label>
                   <Input 
@@ -225,10 +225,11 @@ export default function CheckoutPage() {
                     placeholder="کد را وارد کنید (مثال: SOREN10)" 
                     value={discountCode}
                     onChange={(e) => setDiscountCode(e.target.value)}
+                    aria-label="کد تخفیف"
                   />
                 </div>
                 <Button onClick={handleApplyDiscount} variant="outline" className="h-10 border-primary text-primary hover:bg-primary/10">
-                  <Ticket className="me-2 h-4 w-4" /> اعمال {/* mr-2 to me-2 */}
+                  <Ticket className="me-2 h-4 w-4" /> اعمال
                 </Button>
               </div>
               <Separator />
@@ -256,7 +257,7 @@ export default function CheckoutPage() {
                 onClick={handleProceedToPayment}
                 disabled={cartItems.length === 0}
                 >
-                <CreditCard className="me-2 h-5 w-5" /> پرداخت (شبیه‌سازی شده) {/* mr-2 to me-2 */}
+                <CreditCard className="me-2 h-5 w-5" /> پرداخت (شبیه‌سازی شده)
               </Button>
             </CardFooter>
           </Card>

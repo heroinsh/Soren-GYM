@@ -1,18 +1,11 @@
 
-"use client"; // Error components must be Client Components
+"use client"; 
 
-import type { Metadata } from 'next';
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ServerCrash, RotateCcw, Home } from 'lucide-react';
 import Image from 'next/image';
-
-// While we can't export 'metadata' directly from a client component,
-// we can set the document title.
-// export const metadata: Metadata = {
-//   title: 'خطای سرور (500) | باشگاه ورزشی سورن',
-// };
 
 export default function GlobalErrorPage({
   error,
@@ -22,9 +15,8 @@ export default function GlobalErrorPage({
   reset: () => void;
 }) {
   useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-    document.title = 'خطای سرور (500) | باشگاه ورزشی سورن';
+    console.error("خطای سراسری برنامه:", error);
+    document.title = 'خطای سرور (۵۰۰) | باشگاه ورزشی سورن';
   }, [error]);
 
   return (
@@ -33,12 +25,12 @@ export default function GlobalErrorPage({
         <div className="flex flex-col items-center justify-center min-h-screen py-24 pt-32 md:pt-40 text-center">
           <div className="max-w-lg p-8">
             <Image 
-                src="https://placehold.co/300x300/FF6347/FFFFFF.png?text=\\%3C500%3E&font=montserrat" 
-                alt="خطای 500" 
+                src="https://placehold.co/300x300/FF6347/FFFFFF.png?text=۵۰۰&font=vazirmatn" 
+                alt="خطای ۵۰۰ - خطای سرور" 
                 width={200} 
                 height={200} 
                 className="mx-auto mb-8 rounded-full shadow-lg border-4 border-destructive"
-                data-ai-hint="server error"
+                data-ai-hint="server error 500"
             />
             <h1 className="text-6xl font-bold font-headline text-destructive mb-4">
               خطای ۵۰۰
@@ -64,7 +56,7 @@ export default function GlobalErrorPage({
             </div>
             {error?.digest && (
               <p className="mt-6 text-xs text-muted-foreground">
-                کد خطا: {error.digest}
+                کد خطا (Digest): {error.digest}
               </p>
             )}
           </div>

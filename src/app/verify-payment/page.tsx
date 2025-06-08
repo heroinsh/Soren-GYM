@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState, Suspense } from 'react'; // Added Suspense
+import { useEffect, useState, Suspense } from 'react'; 
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -9,7 +9,7 @@ import { CheckCircle, XCircle, AlertTriangle, Home, CalendarCheck } from 'lucide
 import Link from 'next/link';
 import Image from 'next/image';
 
-export const dynamic = 'force-dynamic'; // Ensure dynamic rendering
+export const dynamic = 'force-dynamic'; 
 
 function VerifyPaymentContent() {
   const searchParams = useSearchParams();
@@ -27,11 +27,13 @@ function VerifyPaymentContent() {
 
     let pageTitle = "تأیید پرداخت | باشگاه ورزشی سورن";
     let metaDescriptionContent = "وضعیت پرداخت شما در باشگاه سورن در حال بررسی است.";
+    let metaKeywordsContent = "تایید پرداخت سورن, نتیجه تراکنش باشگاه, وضعیت سفارش کلاس ورزشی";
 
     if (status === 'success' && code) {
       setTrackingCode(code);
       pageTitle = `پرداخت موفق (${code}) | باشگاه ورزشی سورن`;
       metaDescriptionContent = `پرداخت شما با کد رهگیری ${code} با موفقیت انجام شد. جزئیات ثبت‌نام به پروفایل شما اضافه شد.`;
+      metaKeywordsContent = `پرداخت موفق سورن, کد رهگیری ${code}, تایید ثبت نام کلاس, باشگاه ورزشی`;
       if (typeof window !== 'undefined') {
         localStorage.removeItem('shoppingCartSoren');
       }
@@ -40,11 +42,13 @@ function VerifyPaymentContent() {
       setErrorDetails(error || defaultError);
       pageTitle = "پرداخت ناموفق | باشگاه ورزشی سورن";
       metaDescriptionContent = `متاسفانه پرداخت شما ناموفق بود. ${error || defaultError}`;
-    } else if (!status && router.isReady) { // Check router.isReady before assuming invalid
-      setErrorDetails('دسترسی نامعتبر به صفحه تایید پرداخت.');
+      metaKeywordsContent = "پرداخت ناموفق سورن, خطای تراکنش باشگاه, مشکل پرداخت شهریه";
+    } else if (!status && router.isReady) { 
+      setErrorDetails('دسترسی نامعتبر به صفحه تایید پرداخت. پارامترهای مورد نیاز ارسال نشده‌اند.');
       setVerificationStatus('invalid');
       pageTitle = "خطا در تأیید پرداخت | باشگاه ورزشی سورن";
       metaDescriptionContent = "خطایی در نمایش وضعیت پرداخت رخ داده است. دسترسی به این صفحه نامعتبر است.";
+      metaKeywordsContent = "خطای صفحه تایید پرداخت, مشکل درگاه پرداخت سورن";
     }
     
     document.title = pageTitle;
@@ -54,10 +58,16 @@ function VerifyPaymentContent() {
     if (!document.querySelector('meta[name="description"]')) {
         document.head.appendChild(metaDesc);
     }
+    const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', metaKeywordsContent);
+    if (!document.querySelector('meta[name="keywords"]')) {
+        document.head.appendChild(metaKeywords);
+    }
 
-  }, [searchParams, router.isReady]); // Added router.isReady dependency
+  }, [searchParams, router.isReady]); 
 
-  if (!router.isReady || verificationStatus === null) { // Also wait for router to be ready
+  if (!router.isReady || verificationStatus === null) { 
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32 md:pt-40 flex flex-col items-center justify-center text-center min-h-[calc(100vh-10rem)]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -110,7 +120,7 @@ function VerifyPaymentContent() {
               <AlertTriangle className="h-16 w-16 text-yellow-500 mb-4" />
             }
             <CardTitle className="text-3xl font-headline text-destructive">
-              {verificationStatus === 'failed' ? 'پرداخت ناموفق' : 'خطا'}
+              {verificationStatus === 'failed' ? 'پرداخت ناموفق' : 'خطای دسترسی'}
             </CardTitle>
             <CardDescription className="text-lg">
               {errorDetails || 'مشکلی در پردازش درخواست شما رخ داده است.'}
@@ -131,12 +141,12 @@ function VerifyPaymentContent() {
                 </Link>
               </Button>
             )}
-            <Button asChild className="w-full sm:w-auto">
+            <Button asChild className="w-full sm:w-auto bg-accent hover:bg-accent/90 text-accent-foreground">
               <Link href="/dashboard">
                  بازگشت به پیشخوان
               </Link>
             </Button>
-             <Button asChild variant="link" className="w-full sm:w-auto text-primary">
+             <Button asChild variant="link" className="w-full sm:w-auto text-primary hover:underline">
               <Link href="/contact">
                 تماس با پشتیبانی
               </Link>
@@ -145,8 +155,8 @@ function VerifyPaymentContent() {
         </Card>
       )}
        <Image 
-          src="https://placehold.co/300x100.png?text=ZarinPal+Gateway" 
-          alt="ZarinPal Logo" 
+          src="https://placehold.co/300x100.png?text=درگاه+پرداخت+زرین‌پال" 
+          alt="لوگوی درگاه پرداخت زرین‌پال" 
           width={200} 
           height={67} 
           className="mt-8 opacity-70"
@@ -156,11 +166,9 @@ function VerifyPaymentContent() {
   );
 }
 
-
-// Wrap the component that uses useSearchParams with Suspense
 export default function VerifyPaymentPage() {
   return (
-    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div><p className="ms-3">بارگذاری...</p></div>}>
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div><p className="ms-3">در حال بارگذاری...</p></div>}>
       <VerifyPaymentContent />
     </Suspense>
   );

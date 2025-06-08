@@ -9,14 +9,6 @@ import { socialLinks } from '@/data/socialLinks';
 import Image from 'next/image';
 import { useToast } from '@/hooks/use-toast';
 import { useState, useEffect } from 'react';
-import type { Metadata } from 'next'; // Not used directly for client component metadata
-
-// For client components, metadata is typically handled via document.title or a head manager library.
-// export const metadata: Metadata = {
-// title: 'تماس با باشگاه سورن',
-// description: 'با باشگاه ورزشی سورن تماس بگیرید. آدرس، تلفن، ایمیل و ساعات کاری ما را بیابید یا فرم تماس را برای سوالات خود پر کنید.',
-// keywords: ['تماس با باشگاه سورن', 'آدرس باشگاه سورن شیراز', 'تلفن باشگاه سورن', 'ایمیل باشگاه سورن', 'باشگاه ورزشی شیراز'],
-// };
 
 export default function ContactPage() {
   const { toast } = useToast();
@@ -26,19 +18,31 @@ export default function ContactPage() {
 
   useEffect(() => {
     document.title = 'تماس با ما | باشگاه ورزشی سورن';
+    const metaDesc = document.querySelector('meta[name="description"]') || document.createElement('meta');
+    metaDesc.setAttribute('name', 'description');
+    metaDesc.setAttribute('content', 'با باشگاه ورزشی سورن تماس بگیرید. آدرس، تلفن، ایمیل و ساعات کاری ما را بیابید یا فرم تماس را برای سوالات خود پر کنید.');
+    if (!document.querySelector('meta[name="description"]')) {
+        document.head.appendChild(metaDesc);
+    }
+    // Add keywords
+    const metaKeywords = document.querySelector('meta[name="keywords"]') || document.createElement('meta');
+    metaKeywords.setAttribute('name', 'keywords');
+    metaKeywords.setAttribute('content', 'تماس با باشگاه سورن, آدرس باشگاه سورن شیراز, تلفن باشگاه سورن, ایمیل باشگاه سورن, باشگاه ورزشی شیراز, راه های ارتباطی سورن');
+    if (!document.querySelector('meta[name="keywords"]')) {
+        document.head.appendChild(metaKeywords);
+    }
   }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!name || !email || !message) {
-      toast({ title: "خطا", description: "لطفاً تمامی فیلدها را پر کنید.", variant: "destructive" });
+      toast({ title: "خطا", description: "لطفاً تمامی فیلدهای ستاره‌دار را پر کنید.", variant: "destructive" });
       return;
     }
     if (!/\S+@\S+\.\S+/.test(email)) {
       toast({ title: "خطا", description: "فرمت ایمیل وارد شده صحیح نیست.", variant: "destructive" });
       return;
     }
-    // In a real app, you would send this data to a backend.
     console.log({ name, email, message });
     toast({ title: "پیام ارسال شد", description: "از پیام شما متشکریم. به زودی با شما تماس خواهیم گرفت." });
     setName('');
@@ -86,6 +90,7 @@ export default function ContactPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="email"
+                  dir="ltr"
                 />
               </div>
               <div>
@@ -119,13 +124,13 @@ export default function ContactPage() {
                 </li>
                 <li className="flex items-start">
                   <Mail className="h-6 w-6 text-primary ms-3 mt-1 shrink-0" />
-                  <a href="mailto:info@sorenathletics.com" className="hover:text-primary">info@sorenathletics.com</a>
+                  <a href="mailto:info@sorenathletics.com" className="hover:text-primary hover:underline">info@sorenathletics.com</a>
                 </li>
                 <li className="flex items-start">
                   <Phone className="h-6 w-6 text-primary ms-3 mt-1 shrink-0" />
                   <div>
-                    <a href="tel:07138247977" className="hover:text-primary block">۳۸۲۴۷۹۷۷-۰۷۱</a>
-                    <a href="tel:07138342622" className="hover:text-primary block">۳۸۳۴۲۶۲۲-۰۷۱</a>
+                    <a href="tel:07138247977" className="hover:text-primary hover:underline block">۳۸۲۴۷۹۷۷-۰۷۱</a>
+                    <a href="tel:07138342622" className="hover:text-primary hover:underline block">۳۸۳۴۲۶۲۲-۰۷۱</a>
                   </div>
                 </li>
               </ul>
@@ -143,7 +148,7 @@ export default function ContactPage() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`باشگاه سورن در ${social.name}`}
+                      aria-label={`باشگاه سورن در ${social.persianName}`}
                       className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-full hover:bg-primary/10"
                     >
                       <social.Icon className="h-6 w-6" />
@@ -156,7 +161,7 @@ export default function ContactPage() {
             <div className="bg-card p-2 rounded-lg shadow-xl aspect-[4/3] overflow-hidden">
               <Image 
                 src="https://placehold.co/800x600.png" 
-                alt="نقشه محل باشگاه" 
+                alt="نقشه محل باشگاه سورن" 
                 width={800} 
                 height={600}
                 className="w-full h-full object-cover rounded"

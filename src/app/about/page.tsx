@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 export const metadata: Metadata = {
   title: 'درباره باشگاه سورن',
   description: 'با باشگاه ورزشی سورن، ماموریت ما برای پرورش قدرت، انضباط و جامعه از طریق ورزش آشنا شوید. تاریخچه، ارزش‌ها و چرایی برتری ما را کشف کنید.',
+  keywords: ['باشگاه سورن', 'تاریخچه باشگاه ورزشی', 'ماموریت باشگاه سورن', 'ارزش های باشگاه', 'تیم سورن', 'ورزش شیراز'],
 };
 
 const whyChooseUsItems = [
@@ -72,16 +73,14 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold font-headline text-center mb-16 text-primary">سفر ما</h2>
           <div className="relative">
-            {/* Horizontal line for desktop */}
             <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-primary/30 transform -translate-y-1/2 z-0"></div>
             
             <div className="grid md:grid-cols-4 gap-x-8 gap-y-12 md:gap-y-0">
               {timelineEvents.map((event, index) => (
                 <div key={event.year} className={cn(
                   "relative p-4 md:p-0", 
-                  "md:flex md:flex-col md:justify-center" // Center content (dot and text block) vertically in the cell
+                  "md:flex md:flex-col md:justify-center" 
                 )}>
-                  {/* Mobile Dot & Line container */}
                   <div className="md:hidden absolute top-1.5 right-1.5 h-full w-6 flex flex-col items-center">
                     <div className="w-4 h-4 bg-primary rounded-full border-2 border-card z-10 flex-shrink-0"></div>
                     {index < timelineEvents.length - 1 && (
@@ -89,20 +88,18 @@ export default function AboutPage() {
                     )}
                   </div>
                   
-                  {/* Content Block: Year, Title, Description */}
                   <div className={cn(
                     "mr-10 md:mr-0 md:text-center relative", 
-                    index % 2 === 0 ? "md:order-1 md:mb-10" : "md:order-3 md:mt-10" // Increased margin
+                    index % 2 === 0 ? "md:order-1 md:mb-10" : "md:order-3 md:mt-10" 
                   )}>
                     <h3 className="text-2xl font-bold font-headline text-accent">{event.year}</h3>
                     <h4 className="text-xl font-semibold mt-1 mb-1 text-foreground">{event.title}</h4>
                     <p className="text-sm text-muted-foreground">{event.description}</p>
                   </div>
 
-                  {/* Desktop Dot: Placed via order to be in the middle of text blocks */}
                   <div className={cn(
                     "hidden md:flex md:items-center md:justify-center w-full", 
-                    "md:order-2" // Dot is always in the middle (between order-1 and order-3)
+                    "md:order-2" 
                   )}>
                     <div className="w-4 h-4 bg-primary rounded-full border-4 border-card z-10"></div>
                   </div>

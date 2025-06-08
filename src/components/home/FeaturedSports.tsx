@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft } from 'lucide-react'; // Changed to ArrowLeft for RTL "Learn More"
+import { ArrowLeft } from 'lucide-react'; 
 
 interface Sport {
   name: string;
@@ -39,7 +39,7 @@ export const FeaturedSports = () => {
     <section className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.h2 
-          className="text-4xl font-bold text-center mb-4 font-headline"
+          className="text-4xl font-bold text-center mb-4 font-headline text-primary"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
