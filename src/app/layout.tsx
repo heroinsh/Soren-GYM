@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   description: 'به باشگاه ورزشی سورن خوش آمدید. از تمرینات ورزشی سطح بالا، امکانات مدرن و یک جامعه پویا بهره‌مند شوید. برای رسیدن به اهداف ورزشی خود به ما بپیوندید.',
   keywords: ['باشگاه ورزشی', 'تناسب اندام', 'بدنسازی', 'والیبال', 'بسکتبال', 'ژیمناستیک', 'هنرهای رزمی', 'سورن', 'ورزش', 'شیراز'],
-  viewport: 'width=device-width, initial-scale=1',
+  // viewport: 'width=device-width, initial-scale=1', // Removed to fix build warning
 };
 
 export default function RootLayout({

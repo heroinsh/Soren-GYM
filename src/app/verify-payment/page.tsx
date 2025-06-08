@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react'; // Added Suspense
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -9,7 +9,9 @@ import { CheckCircle, XCircle, AlertTriangle, Home, CalendarCheck } from 'lucide
 import Link from 'next/link';
 import Image from 'next/image';
 
-export default function VerifyPaymentPage() {
+export const dynamic = 'force-dynamic'; // Ensure dynamic rendering
+
+function VerifyPaymentContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [verificationStatus, setVerificationStatus] = useState<string | null>(null);
@@ -38,7 +40,7 @@ export default function VerifyPaymentPage() {
       setErrorDetails(error || defaultError);
       pageTitle = "پرداخت ناموفق | باشگاه ورزشی سورن";
       metaDescriptionContent = `متاسفانه پرداخت شما ناموفق بود. ${error || defaultError}`;
-    } else if (!status) {
+    } else if (!status && router.isReady) { // Check router.isReady before assuming invalid
       setErrorDetails('دسترسی نامعتبر به صفحه تایید پرداخت.');
       setVerificationStatus('invalid');
       pageTitle = "خطا در تأیید پرداخت | باشگاه ورزشی سورن";
@@ -53,9 +55,9 @@ export default function VerifyPaymentPage() {
         document.head.appendChild(metaDesc);
     }
 
-  }, [searchParams]);
+  }, [searchParams, router.isReady]); // Added router.isReady dependency
 
-  if (verificationStatus === null) {
+  if (!router.isReady || verificationStatus === null) { // Also wait for router to be ready
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 pt-32 md:pt-40 flex flex-col items-center justify-center text-center min-h-[calc(100vh-10rem)]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -151,5 +153,15 @@ export default function VerifyPaymentPage() {
           data-ai-hint="payment gateway logo"
         />
     </div>
+  );
+}
+
+
+// Wrap the component that uses useSearchParams with Suspense
+export default function VerifyPaymentPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-screen"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div><p className="ms-3">بارگذاری...</p></div>}>
+      <VerifyPaymentContent />
+    </Suspense>
   );
 }
