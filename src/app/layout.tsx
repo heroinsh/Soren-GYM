@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="fa" suppressHydrationWarning dir="rtl" className="dark">
       <head>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#212126" />
+        <meta name="theme-color" content="#8EFF54" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />

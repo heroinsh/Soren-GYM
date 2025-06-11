@@ -1,7 +1,7 @@
 {
   "name": "باشگاه ورزشی سورن",
   "short_name": "سورن",
-  "description": "باشگاه ورزشی سورن - قدرت، انضباط، جامعه. پورتال وب مدرن شما برای بهترین تجربه ورزشی.",
+  "description": "وب اپلیکیشن باشگاه ورزشی سورن برای مشاهده کلاس‌ها، ثبت‌نام و مدیریت پروفایل.",
   "icons": [
     {
       "src": "/icons/icon-192x192.png",
@@ -10,15 +10,20 @@
       "purpose": "any maskable"
     },
     {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ],
-  "theme_color": "#212126",
+  "theme_color": "#8EFF54",
   "background_color": "#212126",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait-primary"
 }
