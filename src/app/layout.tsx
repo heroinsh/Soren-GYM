@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   keywords: ['باشگاه ورزشی', 'تناسب اندام', 'بدنسازی', 'والیبال', 'بسکتبال', 'ژیمناستیک', 'هنرهای رزمی', 'سورن', 'ورزش', 'شیراز', 'باشگاه شیراز', 'کلاس ورزشی'],
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,6 +24,10 @@ export default function RootLayout({
   return (
     <html lang="fa" suppressHydrationWarning dir="rtl" className="dark">
       <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#212126" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
