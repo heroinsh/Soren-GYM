@@ -2,12 +2,7 @@
 {
   "name": "باشگاه ورزشی سورن",
   "short_name": "سورن",
-  "theme_color": "#8EFF54",
-  "background_color": "#212126",
-  "start_url": "/",
-  "scope": "/",
-  "display": "standalone",
-  "orientation": "portrait-primary",
+  "description": "به باشگاه ورزشی سورن خوش آمدید. تمرینات ورزشی سطح بالا، امکانات مدرن و جامعه‌ای پویا را کشف کنید.",
   "icons": [
     {
       "src": "/icon-192x192.png",
@@ -20,6 +15,42 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#8EFF54",
+  "background_color": "#212126",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "screenshots": [
+    {
+      "src": "https://placehold.co/1080x1920.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "صفحه اصلی موبایل"
+    },
+    {
+      "src": "https://placehold.co/1080x1920.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "صفحه کلاس‌ها موبایل"
+    },
+    {
+      "src": "https://placehold.co/1920x1080.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "صفحه اصلی دسکتاپ"
+    },
+    {
+      "src": "https://placehold.co/1920x1080.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "صفحه کلاس‌ها دسکتاپ"
     }
   ]
 }
