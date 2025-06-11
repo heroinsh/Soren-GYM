@@ -1,23 +1,25 @@
 {
   "name": "باشگاه ورزشی سورن",
   "short_name": "سورن",
-  "description": "وب اپلیکیشن باشگاه ورزشی سورن برای مشاهده کلاس‌ها، ثبت‌نام و مدیریت پروفایل.",
+  "description": "به باشگاه ورزشی سورن خوش آمدید. از تمرینات ورزشی سطح بالا، امکانات مدرن و یک جامعه پویا بهره‌مند شوید.",
   "icons": [
     {
-      "src": "/icons/icon-192x192.png",
+      "src": "/favicon.ico",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/x-icon",
       "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png"
+      "src": "/favicon.ico",
+      "sizes": "512x512",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
     },
     {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "src": "/favicon.ico",
+      "sizes": "144x144",
+      "type": "image/x-icon",
+      "purpose": "any"
     }
   ],
   "theme_color": "#8EFF54",
